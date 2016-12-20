@@ -1,0 +1,23 @@
+{
+    "name": "sebastiangolian/php",
+    "description": "A collection of useful components for PHP",
+    "keywords": ["php", "extension", "helper", "components"],
+    "type": "php",
+    "license": "GNU GENERAL PUBLIC LICENSE",
+    "authors": [
+        {
+            "name": "Sebastian Golian",
+            "email": "sebastiangolian@gmail.com"
+        }
+    ],
+    "support": {
+      "issues": "https://github.com/sebastiangolian/php/issues",
+      "source": "https://github.com/sebastiangolian/php"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "sebastiangolian\\php\\": ""
+        }
+    }
+}
