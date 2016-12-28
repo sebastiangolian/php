@@ -7,7 +7,7 @@ use sebastiangolian\yii2\helpers\Testing;
 class Curl extends Component
 {
     public $curl;
-    public $url;
+    protected $url;
     public $data = [];
     public $options = [];
     

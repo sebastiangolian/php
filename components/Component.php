@@ -2,6 +2,7 @@
 namespace sebastiangolian\php\components;
 
 use Exception;
+use sebastiangolian\yii2\helpers\Testing;
 
 class Component 
 {
@@ -46,15 +47,14 @@ class Component
      */
     public function __get($name)
     {
+        Testing::vd('__get');
         $getter = 'get' . $name;
-        if (method_exists($this, $getter)){
+        if (method_exists($this, $getter)) {
             return $this->$getter();
-        } 
-        elseif (property_exists($this,$name)){
-            return $this->$name;
-        } 
-        else {
-            throw new Exception("Getting unknown property:{$this->className()}::{$name}");
+        } elseif (method_exists($this, 'set' . $name)) {
+            throw new Exception('Getting write-only property: ' . get_class($this) . '::' . $name);
+        } else {
+            throw new Exception('Getting unknown property: ' . get_class($this) . '::' . $name);
         }
     }
     
@@ -66,16 +66,34 @@ class Component
      */
     public function __set($name, $value)
     {
-        Testing::vd('test','_set');
+        Testing::vd('_set');
         $setter = 'set' . $name;
         if (method_exists($this, $setter)) {
             $this->$setter($value);
-        } 
-        elseif (property_exists($this, $name)) {
-            $this->$name = $value;
-        } 
-        else {
+        } elseif (method_exists($this, 'get' . $name)) {
+            throw new Exception('Setting read-only property: ' . get_class($this) . '::' . $name);
+        } else {
             throw new Exception('Setting unknown property: ' . get_class($this) . '::' . $name);
+        }
+    }
+    
+    public function __isset($name)
+    {
+        $getter = 'get' . $name;
+        if (method_exists($this, $getter)) {
+            return $this->$getter() !== null;
+        } else {
+            return false;
+        }
+    }
+    
+    public function __unset($name)
+    {
+        $setter = 'set' . $name;
+        if (method_exists($this, $setter)) {
+            $this->$setter(null);
+        } elseif (method_exists($this, 'get' . $name)) {
+            throw new InvalidCallException('Unsetting read-only property: ' . get_class($this) . '::' . $name);
         }
     }
     
