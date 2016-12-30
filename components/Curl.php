@@ -1,78 +1,158 @@
 <?php
 namespace sebastiangolian\php\components;
 
-use ErrorException;
-use sebastiangolian\yii2\helpers\Testing;
+use Exception;
 
-class Curl extends Component
+class Curl extends Object
 {
+    /**
+     * @var resource Handler to cUrl object
+     * @see http://php.net/manual/en/book.curl.php
+     */
     public $curl;
-    protected $url;
-    public $data = [];
-    public $options = [];
     
-    public function __construct($attributes = [])
+    /**
+     * @var string Url adress example: www.example.com
+     */
+    public $url;
+    
+    /**
+     *
+     * @var array Data to send
+     */
+    public $data = [];
+    
+    /**
+     *
+     * @var array cUrl object options 
+     * @see http://php.net/manual/en/function.curl-setopt.php
+     */
+    private $_curlOptions = [];
+    
+    /**
+     * Constructor.
+     * Sets url and urlData
+     *
+     * @param string $url
+     * @param array $data
+     * @param array $config
+     */
+    public function __construct($url, $data = [], $config = []) 
     {
-        parent::__construct($attributes);
-
+        parent::__construct($config);
+        $this->url = $url;
+        $this->data = $data;
+        
         if (!extension_loaded('curl')) {
-            throw new ErrorException('cURL library is not loaded');
+            throw new Exception('cURL library is not loaded');
         }
         $this->curl = curl_init();
-        $this->setOption(CURLINFO_HEADER_OUT, true);
-        $this->setOption(CURLOPT_RETURNTRANSFER, true);
+        $this->setCurlOption(CURLINFO_HEADER_OUT, true);
+        $this->setCurlOption(CURLOPT_RETURNTRANSFER, true);
     }
 
+    /**
+     * Exec curl query 
+     * @return mixed
+     */
     public function exec()
     {
         return curl_exec($this->curl);
     }
     
+    /**
+     * Send cUrl query for GET request
+     * @return mixed
+     */
+    public function sendGet()
+    {
+        $url = $this->url.(empty($this->data) ? '' : '?'.http_build_query($this->data, '', '&')); 
+        $this->setCurlOption(CURLOPT_URL, $url);
+        return $this->exec();
+    }
+    
+    /**
+     * Send cUrl query for POST request
+     * @return mixed
+     */
+    public function sendPost()
+    {
+        $this->setCurlOption(CURLOPT_URL, $this->url);
+        $this->setCurlOption(CURLOPT_POST, 1);
+        $this->setCurlOption(CURLOPT_POSTFIELDS, http_build_query($this->data));
+        return $this->exec();
+    }
+    
+    /**
+     * Set proxy data
+     * @param string $url
+     * @param integer $port
+     * @param string $username
+     * @param string $pwd
+     */
     public function setProxy($url,$port,$username,$pwd)
     {
-        $this->setOption(CURLOPT_PROXY, $url);
-        $this->setOption(CURLOPT_PROXYPORT, $port);
-        $this->setOption(CURLOPT_PROXYUSERPWD, $username.':'.$pwd);
+        $this->setCurlOption(CURLOPT_PROXY, $url);
+        $this->setCurlOption(CURLOPT_PROXYPORT, $port);
+        $this->setCurlOption(CURLOPT_PROXYUSERPWD, $username.':'.$pwd);
     }
-    
-    //************************* SETTER, GETTER ********************************/
-    
-    public function setUrl($url)
-    {
-        Testing::vd($url,'setUrl');
-        $this->url = $this->buildURL($url, $this->data);
-        $this->setOption(CURLOPT_URL, $this->url);
-    }
-    
-    public function setOption($option, $value)
+
+    /**
+     * Set cUrl option
+     * @param int $option
+     * @param string $value
+     * @return boolean
+     */
+    public function setCurlOption($option, $value)
     {
         $success = curl_setopt($this->curl, $option, $value);
         if ($success) {
-            $this->options[$option] = $value;
+            $this->_curlOptions[$option] = $value;
         }
         return $success;
     }
     
-    public function setOptions($options = [])
+    /**
+     * Set cUrl options
+     * @param array $options
+     * @return boolean
+     */
+    public function setCurlOptions(array $options)
     {
         foreach ($options as $option => $value) {
-            if (!$this->setOption($option, $value)) {
+            if (!$this->setCurlOption($option, $value)) {
                 return false;
             }
         }
         return true;
     }
-    
-    
-    
-    
-    
-    
-   
-    
-    private function buildURL($url, $data = [])
+
+    /**
+     * Get information regarding a specific transfer
+     * @param integer $opt
+     * @return mixed
+     */
+    public function getInfo()
     {
-        return $url . (empty($data) ? '' : '?' . http_build_query($data, '', '&')); 
+        return curl_getinfo($this->curl);
+    }
+    
+    /**
+     * Close cUrl connection
+     */
+    public function close()
+    {
+        if (is_resource($this->curl)) {
+            curl_close($this->curl);
+        }
+    }
+    
+    /**
+     * Destructor
+     */
+    public function __destruct()
+    {
+        $this->close();
     }
 }
 

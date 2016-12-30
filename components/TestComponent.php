@@ -13,14 +13,21 @@ namespace sebastiangolian\php\components;
  *
  * @property string $value
  */
-class TestComponent extends Component {
+class TestComponent extends Object {
+    
+    private $_value;
+    
+    public function init() {
+        $this->_value = 'test';
+    }
+    
     public function setValue($value)
     {
-        $this->value = $value;
+        $this->_value = $value;
     }
     
     public function getValue()
     {
-        return $this->value;
+        return $this->_value;
     }
 }
