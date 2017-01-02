@@ -1,8 +1,7 @@
 <?php
-namespace sebastiangolian\php\components;
+namespace sebastiangolian\php\base;
 
 use Exception;
-use sebastiangolian\yii2\helpers\Testing;
 
 /**
  * @link http://www.yiiframework.com/

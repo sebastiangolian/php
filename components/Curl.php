@@ -2,6 +2,20 @@
 namespace sebastiangolian\php\components;
 
 use Exception;
+use sebastiangolian\php\base\Object;
+
+/**
+ * @license GNU GENERAL PUBLIC LICENSE
+ * @author Sebastian Golian <sebastiangolian@gmail.com>
+ * 
+ * PHP Component allows the use of cUrl library
+ * 
+ * $curl = new Curl('www.example.com');
+ * $curl = new Curl('http://www.ebay.com/sch/i.html',['_nkw'=>272115847388]);
+ * $curl->setProxy('proxy.com', 8080, 'login', 'pass');
+ * echo $curl->sendGet();
+ * echo $curl->sendPost();
+ */
 
 class Curl extends Object
 {
@@ -102,6 +116,8 @@ class Curl extends Object
      * @param int $option
      * @param string $value
      * @return boolean
+     * 
+     * $curl->setCurlOption(CURLOPT_PROXY, 'http://example.com');
      */
     public function setCurlOption($option, $value)
     {
