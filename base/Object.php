@@ -37,7 +37,7 @@ use Exception;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class Object 
+abstract class Object 
 {
     /**
      * Constructor.
