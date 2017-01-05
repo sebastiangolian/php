@@ -1,8 +1,6 @@
 <?php
 namespace sebastiangolian\php\helpers;
 
-use sebastiangolian\yii2\helpers\Testing;
-
 /**
  * @license GNU GENERAL PUBLIC LICENSE
  * @author Sebastian Golian <sebastiangolian@gmail.com>
