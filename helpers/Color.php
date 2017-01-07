@@ -7,7 +7,7 @@ namespace sebastiangolian\php\helpers;
  * 
  * Color provides a set of static methods for commonly used function color
  */
-class Color
+abstract class Color
 {
     /**
      * Convert color value in HEX to RGB format

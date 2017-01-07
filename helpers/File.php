@@ -7,7 +7,7 @@ namespace sebastiangolian\php\helpers;
  * 
  * File provides a set of static methods for commonly used function file
  */
-class File
+abstract class File
 {
     /**
      * Create file with content

@@ -7,7 +7,7 @@ namespace sebastiangolian\php\helpers;
  * 
  * Dir provides a set of static methods for commonly used function dir
  */
-class Dir
+abstract class Dir
 {
     /**
      * Create dir in $dirPath location
