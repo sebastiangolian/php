@@ -13,7 +13,6 @@ use sebastiangolian\php\base\Soap;
 class GeoIPService extends Soap
 {
     protected $_wsdl = 'http://www.webservicex.net/geoipservice.asmx?WSDL';
-    protected $_options = ['soap_version' => SOAP_1_2];
     
     /**
      * Enables you to easily look up countries by IP addresses
