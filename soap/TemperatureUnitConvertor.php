@@ -1,6 +1,8 @@
 <?php
 namespace sebastiangolian\php\soap;
 
+use sebastiangolian\php\base\Soap;
+
 
 /**
  * @license GNU GENERAL PUBLIC LICENSE
@@ -9,7 +11,7 @@ namespace sebastiangolian\php\soap;
  * TemperatureUnitConvertor Webservice
  * @see http://www.webservicex.com/New/Home/ServiceDetail/31
  */
-class TemperatureUnitConvertor extends BaseSoap
+class TemperatureUnitConvertor extends Soap
 {
     protected $_wsdl = 'http://www.webservicex.net/ConvertTemperature.asmx?WSDL';
     

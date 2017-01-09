@@ -1,6 +1,8 @@
 <?php
 namespace sebastiangolian\php\soap;
 
+use sebastiangolian\php\base\Soap;
+
 
 /**
  * @license GNU GENERAL PUBLIC LICENSE
@@ -8,7 +10,7 @@ namespace sebastiangolian\php\soap;
  * 
  * GeoIPService Webservice
  */
-class GeoIPService extends BaseSoap
+class GeoIPService extends Soap
 {
     protected $_wsdl = 'http://www.webservicex.net/geoipservice.asmx?WSDL';
     protected $_options = ['soap_version' => SOAP_1_2];
