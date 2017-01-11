@@ -112,5 +112,16 @@ abstract class Soap extends SoapClient
     {
         return $this->__getLastRequest();
     }
+    
+    /**
+     * Get last SOAP response
+     * Options trace must be 1
+     * $soap = new TestSoap(['trace' => 1])
+     * @return string
+     */
+    public function getLastResponse()
+    {
+        return $this->__getLastResponse();
+    }
 }
 

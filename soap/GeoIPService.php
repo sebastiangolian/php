@@ -12,6 +12,10 @@ use sebastiangolian\php\base\Soap;
  */
 class GeoIPService extends Soap
 {
+    /**
+     * WSDL url
+     * @var string
+     */
     protected $_wsdl = 'http://www.webservicex.net/geoipservice.asmx?WSDL';
     
     /**
