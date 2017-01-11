@@ -2,15 +2,53 @@
 namespace sebastiangolian\php\components;
 use sebastiangolian\php\base\Component;
 
+/**
+ * @license GNU GENERAL PUBLIC LICENSE
+ * @author Sebastian Golian <sebastiangolian@gmail.com>
+ * 
+ * PHP Component allows the use of LDAP library
+ * 
+ * $ldap = new Ldap('ldap://hostname',636,'DC=dc,DC=en');
+ * $ldap->login('login', 'password')
+ */
 class Ldap extends Component
 {
-    public $host = 'ldap://net.pp';
+    /**
+     * Hostname. ldaps://hostname/, ldap://hostname/.
+     * @var string 
+     */
+    public $host;
+    
+    /**
+     * Port number. 389 - LDAP, 636 - LDAPS
+     * @var int
+     */
     public $port = 636;
-    public $dn = 'DC=net,DC=pp';
+    
+    /**
+     * The base DN for the directory.
+     * @var string 
+     */
+    public $dn;
+    
+    /**
+     * Ldap connection handler
+     * @var type 
+     */
     private $_conn;
     
-    public function __construct($config = []) 
+    /**
+     * Ldap component constructor
+     * @param string $host
+     * @param int $port
+     * @param string $dn
+     * @param array $config
+     */
+    public function __construct($host, $port, $dn, $config = []) 
     {
+        $this->host = $host;
+        $this->port = $port;
+        $this->dn = $dn;
         parent::__construct($config);
         
         $this->_conn = ldap_connect($this->host, $this->port) or die("Nie udało się nawiązać połączenia LDAP.");
@@ -19,7 +57,7 @@ class Ldap extends Component
     }
    
     /**
-     * Zwraca ostatni błąd komendy połączenia LDAP
+     * Return the LDAP error message of the last LDAP command
      * @return string
      */
     public function getError()
@@ -28,30 +66,28 @@ class Ldap extends Component
     }
     
     /**
-     * Tworzy powiązanie z katalogiem LDAP, dzięki czemu możemy go przeszukiwać
-     * @param string $bind_rdn
-     * @param string $bind_password
-     * @return bool
-     * 
+     * Bind to LDAP directory
      * $ldap->bind('cn=read-only-admin,dc=example,dc=com','password');
+     * @param string $bindRdn
+     * @param string $bindPassword
+     * @return bool
      */
-    public function bind($bind_rdn,$bind_password)
+    public function bind($bindRdn,$bindPassword)
     {
-        return ldap_bind($this->_conn,$bind_rdn,$bind_password);
+        return ldap_bind($this->_conn,$bindRdn,$bindPassword);
     }
     
     /**
-     * Wyszukiwanie w AD za pomocą LDAP
-     * @param string $bind_rdn
-     * @param string $bind_password
+     * Search to LDAP directory
+     * $ldap->search('cn=read-only-admin,dc=example,dc=com','password','(uid=riemann)')
+     * @param string $bindRdn
+     * @param string $bindPassword
      * @param string $filter
      * @return array
-     * 
-     * $ldap->search('cn=read-only-admin,dc=example,dc=com','password','(uid=riemann)')
      */
-    public function search($bind_rdn,$bind_password,$filter)
+    public function search($bindRdn,$bindPassword,$filter)
     {        
-        if($bind = ldap_bind($this->_conn,$bind_rdn,$bind_password)) 
+        if($bind = ldap_bind($this->_conn,$bindRdn,$bindPassword)) 
         {
             $result = ldap_search($this->_conn,$this->dn,$filter);
             $entries = ldap_get_entries($this->_conn, $result);
@@ -60,7 +96,7 @@ class Ldap extends Component
     }
     
     /**
-     * Zamknięcie połaczenia LDAP
+     * Close LDAP connection
      */
     public function close()
     {
@@ -68,7 +104,7 @@ class Ldap extends Component
     }
     
     /**
-     * Logowanie przez AD
+     * Ldap logging
      * @param string $login
      * @param string $password
      * @return boolean
@@ -82,15 +118,15 @@ class Ldap extends Component
     }
     
     /**
-     * Sprawdzenie czy istnieje login w AD [konieczne login i hasło admina AD
-     * @param string $admin_login
-     * @param string $admin_pass
+     * Check exist login 
+     * @param string $adminLogin
+     * @param string $adminPass
      * @param string $login
      * @return boolean
      */
-    public function existLogin($admin_login,$admin_pass,$login)
+    public function existLogin($adminLogin,$adminPass,$login)
     {
-        ldap_bind($this->_conn,$admin_login,$admin_pass);
+        ldap_bind($this->_conn,$adminLogin,$adminPass);
         $result = ldap_search($this->conn, $this->dn,'(&(cn='.$login.'))') or die ('Błąd: ' . ldap_error($this->_conn));
         return ldap_get_entries($this->_conn, $result);
     }
