@@ -1,17 +1,17 @@
 <?php
 
-namespace sebastiangolian\php\soap;
+namespace sebastiangolian\php\components;
 
 use SoapClient;
 
 /**
- * $generator = new Generator('http://www.webservicex.net/geoipservice.asmx?WSDL',['trace'=>true]);
+ * $generator = new SoapGenerator('http://www.webservicex.net/geoipservice.asmx?WSDL',['trace'=>true]);
  * $generator->serviceAlias = 'Geoip';
  * $generator->typePrefix = 'Geoip_';
  * $generator->outputFile = 'Geoip.php';
  * $generator->generateCode();
  */
-class Generator 
+class SoapGenerator 
 {
     public $serviceAlias = 'Service';
     public $typePrefix = '';
