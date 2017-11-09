@@ -132,7 +132,7 @@ abstract class DateTime
      * DateTime::getDifference('2017-01-30', '2017-01-01')
      * @param string $date1
      * @param string $date2
-     * @return DateInterval
+     * @return string
      */
     static function getDifference($date1,$date2)
     {

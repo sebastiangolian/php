@@ -12,9 +12,9 @@ abstract class Math
     /**
      * Round value to $precision places after comma
      * Math::rounding(10.45678, 2)
-     * @param type $value
-     * @param type $precision
-     * @param type $mode
+     * @param int $value
+     * @param float $precision
+     * @param int $mode
      * @return type
      */
     public static function rounding($value,$precision = 0,$mode = PHP_ROUND_HALF_UP)
