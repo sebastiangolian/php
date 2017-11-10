@@ -1,7 +1,6 @@
 <?php
-namespace sebastiangolian\php\components;
+namespace sebastiangolian\php\base;
 
-use sebastiangolian\php\base\Object;
 
 /**
  * @license GNU GENERAL PUBLIC LICENSE
@@ -9,7 +8,7 @@ use sebastiangolian\php\base\Object;
  * 
  * Base class to components
  */
-abstract class BaseComponent extends Object
+abstract class Component extends Object
 {
     
 }

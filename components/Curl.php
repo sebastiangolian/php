@@ -2,6 +2,7 @@
 namespace sebastiangolian\php\components;
 
 use Exception;
+use sebastiangolian\php\base\Component;
 
 /**
  * @license GNU GENERAL PUBLIC LICENSE
@@ -16,7 +17,7 @@ use Exception;
  * echo $curl->sendPost();
  */
 
-class Curl extends BaseComponent
+class Curl extends Component
 {
     /**
      * @var resource Handler to cUrl object

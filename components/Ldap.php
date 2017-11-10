@@ -1,6 +1,8 @@
 <?php
 namespace sebastiangolian\php\components;
 
+use sebastiangolian\php\base\Component;
+
 
 
 /**
@@ -12,7 +14,7 @@ namespace sebastiangolian\php\components;
  * $ldap = new Ldap('ldap://hostname',636,'DC=dc,DC=en');
  * $ldap->login('login', 'password')
  */
-class Ldap extends BaseComponent
+class Ldap extends Component
 {
     /**
      * Hostname. ldaps://hostname/, ldap://hostname/.

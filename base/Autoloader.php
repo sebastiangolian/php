@@ -1,4 +1,5 @@
 <?php
+
 function __autoload($class) {
     
     // convert namespace to full file path
