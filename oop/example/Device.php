@@ -1,4 +1,12 @@
 <?php
+
+/*
+    $computer = new Computer();
+    $computer->turnOn()->turnOff();
+    
+    $monitor = new MessageMonitor();
+    $monitor->printMessages();
+ */
 class Message
 {
     private $text;
@@ -82,9 +90,3 @@ class Computer implements DeviceInterface
         return $this;
     }
 }
-
-$computer = new Computer();
-$computer->turnOn()->turnOff();
-
-$monitor = new MessageMonitor();
-$monitor->printMessages();

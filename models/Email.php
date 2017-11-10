@@ -3,6 +3,12 @@ namespace sebastiangolian\php\models;
 
 use sebastiangolian\php\base\Model;
 
+
+/*
+    $email = new Email(['email' => 'sebastiangolian@gmail.com']);
+    VarDumper::dump($email->validate());
+    VarDumper::dump($email->errors);
+ */
 class Email extends Model
 {
     protected $email;   

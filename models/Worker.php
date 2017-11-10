@@ -1,7 +1,6 @@
 <?php
 namespace sebastiangolian\php\models;
 
-
 /*
 $address = new Address(['street'=>'Testowa 22','number'=>'1','local'=>'2a','postCode'=>'20-000','city'=>'Warszawa','type'=>'domowy']);
 $address1 = new Address(['street'=>'Testowa 2','number'=>'3','local'=>'4','postCode'=>'21-000','city'=>'Lublin','type'=>'firmowy']);
@@ -23,7 +22,13 @@ $worker = new Worker([
     'phoneNumbers'=>[$phoneNumber,$phoneNumber1]
 ]);
 
-$worker->toString();
+$company = new Company([
+    'id' => 1,
+    'name' => 'Company S.A.',
+    'workers' => [$worker]
+]);
+
+$company_worker_1_addresses = $company->workers[0]->addresses;
 */
 /**
  * Osoba
