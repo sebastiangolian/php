@@ -1,6 +1,6 @@
 <?php
 
-namespace sebastiangolian\php\components;
+namespace sebastiangolian\php\soap;
 
 use SoapClient;
 

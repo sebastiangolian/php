@@ -3,7 +3,6 @@ namespace sebastiangolian\php\components;
 
 use Exception;
 use PDO;
-use sebastiangolian\php\base\Component;
 
 /**
  * @license GNU GENERAL PUBLIC LICENSE
@@ -11,7 +10,7 @@ use sebastiangolian\php\base\Component;
  * 
  * PHP Component allows the use of PDO library
  */
-class PdoConnector extends Component
+class PdoConnector extends BaseComponent
 {
     /**
      * PDO handler

@@ -2,7 +2,6 @@
 namespace sebastiangolian\php\components;
 
 use Exception;
-use sebastiangolian\php\base\Component;
 
 /**
  * @license GNU GENERAL PUBLIC LICENSE
@@ -13,7 +12,7 @@ use sebastiangolian\php\base\Component;
  * $smsSender = new SmsSender(['+48777777777@text.plusgsm.pl','subject','message','from']);
  * $smsSender->send();
  */
-class SmsSender extends Component
+class SmsSender extends BaseComponent
 {
     /**
      * Receiver, or receivers of the message.
