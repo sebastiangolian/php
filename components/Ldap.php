@@ -1,6 +1,8 @@
 <?php
 namespace sebastiangolian\php\components;
+
 use sebastiangolian\php\base\Component;
+
 
 /**
  * @license GNU GENERAL PUBLIC LICENSE
@@ -33,9 +35,9 @@ class Ldap extends Component
     
     /**
      * Ldap connection handler
-     * @var type 
+     * @var string 
      */
-    private $_conn;
+    private $conn;
     
     /**
      * Ldap component constructor
@@ -51,9 +53,9 @@ class Ldap extends Component
         $this->dn = $dn;
         parent::__construct($config);
         
-        $this->_conn = ldap_connect($this->host, $this->port) or die("Nie udało się nawiązać połączenia LDAP.");
-        ldap_set_option($this->_conn, LDAP_OPT_PROTOCOL_VERSION, 3);   //użycie wersji protokołu LDAP v3
-        ldap_set_option($this->_conn, LDAP_OPT_REFERRALS, 0);
+        $this->conn = ldap_connect($this->host, $this->port) or die("Nie udało się nawiązać połączenia LDAP.");
+        ldap_set_option($this->conn, LDAP_OPT_PROTOCOL_VERSION, 3);   //użycie wersji protokołu LDAP v3
+        ldap_set_option($this->conn, LDAP_OPT_REFERRALS, 0);
     }
    
     /**
@@ -62,7 +64,7 @@ class Ldap extends Component
      */
     public function getError()
     {
-        return ldap_error($this->_conn);
+        return ldap_error($this->conn);
     }
     
     /**
@@ -74,7 +76,7 @@ class Ldap extends Component
      */
     public function bind($bindRdn,$bindPassword)
     {
-        return ldap_bind($this->_conn,$bindRdn,$bindPassword);
+        return ldap_bind($this->conn,$bindRdn,$bindPassword);
     }
     
     /**
@@ -87,12 +89,13 @@ class Ldap extends Component
      */
     public function search($bindRdn,$bindPassword,$filter)
     {        
-        if($bind = ldap_bind($this->_conn,$bindRdn,$bindPassword)) 
+        if(ldap_bind($this->conn,$bindRdn,$bindPassword)) 
         {
-            $result = ldap_search($this->_conn,$this->dn,$filter);
-            $entries = ldap_get_entries($this->_conn, $result);
+            $result = ldap_search($this->conn,$this->dn,$filter);
+            $entries = ldap_get_entries($this->conn, $result);
             return $entries;
-        }        
+        }  
+        return [];
     }
     
     /**
@@ -100,7 +103,7 @@ class Ldap extends Component
      */
     public function close()
     {
-        ldap_close($this->_conn);
+        ldap_close($this->conn);
     }
     
     /**
@@ -111,7 +114,7 @@ class Ldap extends Component
      */
     public function login($login,$password)
     {
-        if(@ldap_bind($this->_conn, $login, $password))
+        if(@ldap_bind($this->conn, $login, $password))
             return true;
         else
             return false;
@@ -126,8 +129,8 @@ class Ldap extends Component
      */
     public function existLogin($adminLogin,$adminPass,$login)
     {
-        ldap_bind($this->_conn,$adminLogin,$adminPass);
-        $result = ldap_search($this->conn, $this->dn,'(&(cn='.$login.'))') or die ('Błąd: ' . ldap_error($this->_conn));
-        return ldap_get_entries($this->_conn, $result);
+        ldap_bind($this->conn,$adminLogin,$adminPass);
+        $result = ldap_search($this->conn, $this->dn,'(&(cn='.$login.'))') or die ('Błąd: ' . ldap_error($this->conn));
+        return ldap_get_entries($this->conn, $result);
     }
 }

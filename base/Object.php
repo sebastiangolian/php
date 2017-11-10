@@ -16,16 +16,16 @@ use Exception;
  * the following getter and setter methods define a property named `label`:
  *
  * ```php
- * private $_label;
+ * private $label;
  *
  * public function getLabel()
  * {
- *     return $this->_label;
+ *     return $this->label;
  * }
  *
  * public function setLabel($value)
  * {
- *     $this->_label = $value;
+ *     $this->label = $value;
  * }
  * 
  * public function __construct($param1, $param2, ..., $config = [])
@@ -100,8 +100,8 @@ abstract class Object
      * will be implicitly called when executing `$value = $object->property;`.
      * @param string $name the property name
      * @return mixed the property value
-     * @throws Exception if the property is not defined
-     * @throws Exception if the property is write-only
+     * @throws UnknownPropertyException if the property is not defined
+     * @throws InvalidCallException if the property is write-only
      * @see __set()
      */
     public function __get($name)
@@ -123,8 +123,8 @@ abstract class Object
      * will be implicitly called when executing `$object->property = $value;`.
      * @param string $name the property name or the event name
      * @param mixed $value the property value
-     * @throws Exception if the property is not defined
-     * @throws Exception if the property is read-only
+     * @throws UnknownPropertyException if the property is not defined
+     * @throws InvalidCallException if the property is read-only
      * @see __get()
      */
     public function __set($name, $value)
@@ -169,7 +169,7 @@ abstract class Object
      * Note that if the property is not defined, this method will do nothing.
      * If the property is read-only, it will throw an exception.
      * @param string $name the property name
-     * @throws Exception if the property is read only.
+     * @throws InvalidCallException if the property is read only.
      * @see http://php.net/manual/en/function.unset.php
      */
     public function __unset($name)
@@ -189,7 +189,7 @@ abstract class Object
      * will be implicitly called when an unknown method is being invoked.
      * @param string $name the method name
      * @param array $params method parameters
-     * @throws Exception when calling unknown method
+     * @throws UnknownMethodException when calling unknown method
      * @return mixed the method return value
      */
     public function __call($name, $params)

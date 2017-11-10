@@ -17,19 +17,19 @@ class PdoConnector extends Component
      * PDO handler
      * @var PDO 
      */
-    private $_pdo;
+    private $pdo;
     
     /**
      * List of query parameters 
      * @var array 
      */
-    private $_parameters = [];
+    private $parameters = [];
     
     /**
      * Query to prepare
      * @var string 
      */
-    private $_query;
+    private $query;
     
     /**
      * PdoConnector object
@@ -47,7 +47,7 @@ class PdoConnector extends Component
             $pdo = new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname . ';charset=utf8', $user, $pass, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
             $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->_pdo = $pdo;
+            $this->pdo = $pdo;
         } catch (Exception $ex) {
             echo $ex->getMessage();
         }
@@ -72,9 +72,9 @@ class PdoConnector extends Component
         $statement = strtolower($rawStatement[0]);
         
         if ($statement === 'select' || $statement === 'show') {
-            return $this->_query->fetchAll($fetchmode);
+            return $this->query->fetchAll($fetchmode);
         } elseif ($statement === 'insert' || $statement === 'update' || $statement === 'delete') {
-            return $this->_query->rowCount();
+            return $this->query->rowCount();
         } else {
             return NULL;
         }
@@ -88,12 +88,12 @@ class PdoConnector extends Component
     private function before($query, $parameters = "")
     {
         try {
-            $this->_query = $this->_pdo->prepare($query);
-            $this->_parameters = [];
+            $this->query = $this->pdo->prepare($query);
+            $this->parameters = [];
             $this->addParameters($parameters);
 
-            if (!empty($this->_parameters)) {
-                foreach ($this->_parameters as $value) {
+            if (!empty($this->parameters)) {
+                foreach ($this->parameters as $value) {
                     if(is_int($value[1])) {
                         $type = PDO::PARAM_INT;
                     } else if(is_bool($value[1])) {
@@ -103,11 +103,11 @@ class PdoConnector extends Component
                     } else {
                         $type = PDO::PARAM_STR;
                     }
-                    $this->_query->bindValue($value[0], $value[1], $type);
+                    $this->query->bindValue($value[0], $value[1], $type);
                 }
             }
             
-            $this->_query->execute();
+            $this->query->execute();
         }
         catch (Exception $ex) {
             echo $ex->getMessage().' '.$query;
@@ -116,21 +116,21 @@ class PdoConnector extends Component
     
     /**
      * Add parameter to list
-     * @param type $parameter
-     * @param type $value
+     * @param string $parameter
+     * @param string $value
      */
     public function addParametr($parameter, $value)
     {
-        $this->_parameters[sizeof($this->_parameters)] = [":" . $parameter , $value];
+        $this->parameters[sizeof($this->parameters)] = [":" . $parameter , $value];
     }
 
     /**
      * Add parameters to list
-     * @param type $parameters
+     * @param array $parameters
      */
     public function addParameters($parameters)
     {
-        if (empty($this->_parameters) && is_array($parameters)) {
+        if (empty($this->parameters) && is_array($parameters)) {
             $columns = array_keys($parameters);
             foreach ($columns as &$column) {
                 $this->addParametr($column, $parameters[$column]);
@@ -144,7 +144,7 @@ class PdoConnector extends Component
      */
     public function getLastInsertId()
     {
-        return $this->_pdo->lastInsertId();
+        return $this->pdo->lastInsertId();
     }
     
     /**
@@ -153,7 +153,7 @@ class PdoConnector extends Component
      */
     public function beginTransaction()
     {
-        return $this->_pdo->beginTransaction();
+        return $this->pdo->beginTransaction();
     }
     
     /**
@@ -162,7 +162,7 @@ class PdoConnector extends Component
      */
     public function executeTransaction()
     {
-        return $this->_pdo->commit();
+        return $this->pdo->commit();
     }
     
     /**
@@ -179,7 +179,7 @@ class PdoConnector extends Component
      */
     public function close()
     {
-        $this->_pdo = null;
+        $this->pdo = null;
     }
     
     /**

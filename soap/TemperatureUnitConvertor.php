@@ -1,8 +1,6 @@
 <?php
 namespace sebastiangolian\php\soap;
 
-use sebastiangolian\php\base\Soap;
-
 
 /**
  * @license GNU GENERAL PUBLIC LICENSE
@@ -13,7 +11,13 @@ use sebastiangolian\php\base\Soap;
  */
 class TemperatureUnitConvertor extends Soap
 {
-    protected $_wsdl = 'http://www.webservicex.net/ConvertTemperature.asmx?WSDL';
+    protected $wsdl = 'http://www.webservicex.net/ConvertTemperature.asmx?WSDL';
+    
+    protected $classmap = [
+        "ConvertTemp" => "sebastiangolian\php\soap\ConvertTemp",
+        "TemperatureUnit" => "sebastiangolian\php\soap\TemperatureUnit",
+        "ConvertTempResponse" => "sebastiangolian\php\soap\ConvertTempResponse"
+    ];
     
     const UNIT_CELCIUS = 'degreeCelsius';
     const UNIT_FAHRENHEIT = 'degreeFahrenheit';
@@ -24,11 +28,11 @@ class TemperatureUnitConvertor extends Soap
     /**
      * Convert temperature
      * $soap = new TemperatureUnitConvertor();
-     * $soap->ConvertTemp(20, TemperatureUnitConvertor::UNIT_CELCIUS, TemperatureUnitConvertor::UNIT_KELVIN);
+     * $convertTempResponse = $soap->ConvertTemp(20, TemperatureUnitConvertor::UNIT_CELCIUS, TemperatureUnitConvertor::UNIT_KELVIN);
      * @param float $temperature
      * @param string $fromUnit
      * @param string $toUnit
-     * @return float
+     * @return ConvertTempResponse
      */
     public function ConvertTemp($temperature,$fromUnit = self::UNIT_CELCIUS,$toUnit = self::UNIT_FAHRENHEIT)
     {
@@ -39,4 +43,51 @@ class TemperatureUnitConvertor extends Soap
         ]);
     }
 }
+
+/**********SOAP TYPES***********/
+
+/**
+ * Generated data proxy class for struct ConvertTemp
+ *
+ */
+class ConvertTemp {
+    
+    /**
+     * @var double $Temperature
+     */
+    public $Temperature;
+    
+    /**
+     * @var TemperatureUnit $FromUnit
+     */
+    public $FromUnit;
+    
+    /**
+     * @var TemperatureUnit $ToUnit
+     */
+    public $ToUnit;
+    
+}
+
+/**
+ * Generated data proxy class for string TemperatureUnit
+ *
+ */
+class TemperatureUnit {
+    
+}
+
+/**
+ * Generated data proxy class for struct ConvertTempResponse
+ *
+ */
+class ConvertTempResponse {
+    
+    /**
+     * @var double $ConvertTempResult
+     */
+    public $ConvertTempResult;
+    
+}
+
 

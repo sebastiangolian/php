@@ -35,7 +35,7 @@ class SmsSender extends Component
     
     /**
      * Name of sender message. Example: example.com
-     * @var type 
+     * @var string 
      */
     public $from;
     

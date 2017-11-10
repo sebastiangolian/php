@@ -41,7 +41,7 @@ class Curl extends Component
      * @var array cUrl object options 
      * @see http://php.net/manual/en/function.curl-setopt.php
      */
-    private $_curlOptions = [];
+    private $curlOptions = [];
     
     /**
      * Constructor.
@@ -123,7 +123,7 @@ class Curl extends Component
     {
         $success = curl_setopt($this->curl, $option, $value);
         if ($success) {
-            $this->_curlOptions[$option] = $value;
+            $this->curlOptions[$option] = $value;
         }
         return $success;
     }
