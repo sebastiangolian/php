@@ -1,4 +1,5 @@
 <?php
+use sebastiangolian\php\base\Collection;
 use sebastiangolian\php\helpers\VarDumper;
 
 require_once 'base/Autoloader.php';
@@ -18,16 +19,21 @@ $uczen->dodajOceneNaSemestr(new OcenaNaSemestr($uczen, $ocena4, $semestrJesien20
 $uczen->dodajOceneNaSemestr(new OcenaNaSemestr($uczen, $ocena5, $semestrJesien2017, $przedmiotMatematyka));
 
 
+class OcenyCollection extends Collection { 
+    public function addItem(Ocena $obj, $key = null) {
+        parent::addItem($obj, $key);
+    }
+}
 
+$oceny = new OcenyCollection();
+$oceny->addItem($ocena4);
+$oceny->addItem($ocena5);
+$oceny->addItem($ocena6);
 
-
-$collection = new Collection('Ocena');
-$collection[] = $ocena4;
-$collection[] = $ocena6;
-$collection[] = $ocena5;
-
-sort($collection);
-foreach ($collection as $value)
+foreach ($oceny as $value)
 {
     VarDumper::dump($value);
 }
+
+VarDumper::dump($oceny->length());
+VarDumper::dump($oceny->getItem(1));
