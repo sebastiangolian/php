@@ -11,9 +11,23 @@ abstract class Entity extends Model
     protected $name;
     protected $id;
     
-    public $addresses = array();
-    public $phoneNumbers = array();
-    public $emails = array();
+    /**
+     *
+     * @var AddressCollection
+     */
+    public $addresses;
+    
+    /**
+     *
+     * @var PhoneNumberCollection
+     */
+    public $phoneNumbers;
+    
+    /**
+     *
+     * @var EmailCollection
+     */
+    public $emails;
     
     /**
      * Validation object
@@ -28,6 +42,75 @@ abstract class Entity extends Model
             return false;
         } else {
             return true;
+        }
+    }
+    
+    public function addAddress(Address $address)
+    {
+        $this->isAddressCollection();
+        $this->addresses->addItem($address);
+        return $this;
+    }
+    
+    public function removeAddress($key)
+    {
+        $this->isAddressCollection();
+        if($this->addresses->exists($key)){
+            $this->addresses->removeItem($key);
+        }
+        return $this;
+    }
+    
+    private function isAddressCollection()
+    {
+        if(!isset($this->addresses)){
+            $this->addresses = new AddressCollection();
+        }
+    }
+    
+    public function addPhoneNumber(PhoneNumber $phoneNumber)
+    {
+        $this->isPhoneNumberCollection();
+        $this->phoneNumbers->addItem($phoneNumber);
+        return $this;
+    }
+    
+    public function removePhoneNumber($key)
+    {
+        $this->isPhoneNumberCollection();
+        if($this->phoneNumbers->exists($key)){
+            $this->phoneNumbers->removeItem($key);
+        }
+        return $this;
+    }
+    
+    private function isPhoneNumberCollection()
+    {
+        if(!isset($this->phoneNumbers)){
+            $this->phoneNumbers = new PhoneNumberCollection();
+        }
+    }
+    
+    public function addEmail(Email $email)
+    {
+        $this->isEmailCollection();
+        $this->emails->addItem($email);
+        return $this;
+    }
+    
+    public function removeEmail($key)
+    {
+        $this->isEmailCollection();
+        if($this->emails->exists($key)){
+            $this->emails->removeItem($key);
+        }
+        return $this;
+    }
+    
+    private function isEmailCollection()
+    {
+        if(!isset($this->emails)){
+            $this->emails = new EmailCollection();
         }
     }
 }

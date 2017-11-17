@@ -5,37 +5,38 @@ use Iterator;
 
 class CollectionIterator implements Iterator {
     
-    private $_collection;
-    private $_currIndex = 0;
-    private $_keys;
+    private $collection;
+    private $position = 0;
+    private $keys;
     
     public function __construct(Collection $objCol) {
-        $this->_collection = $objCol;
-        $this->_keys = $this->_collection->keys();
+        $this->collection = $objCol;
+        $this->keys = $this->collection->keys();
     }
     
     public function rewind() {
-        $this->_currIndex = 0;
+        $this->position = 0;
     }
     
     public function hasMore() {
-        return $this->_currIndex < $this->_collection->length();
+        return $this->position < $this->collection->length();
     }
     
     public function key() {
-        return $this->_keys[$this->_currIndex];
+        return $this->keys[$this->position];
     }
     
     public function current() {
-        return $this->_collection->getItem($this->_keys[$this->_currIndex]);
+        return $this->collection->getItem($this->keys[$this->position]);
     }
     
     public function next() {
-        $this->_currIndex++;
+        ++$this->position;
     }
+    
     public function valid()
     {
-        
+        return isset($this->keys[$this->position]);
     }
 
 }

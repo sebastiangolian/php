@@ -8,31 +8,29 @@ use IteratorAggregate;
 
 abstract class Collection implements IteratorAggregate
 {
-    private $_members = array();    // elementy kolekcji
-    
-    private $_onload;               // funkcja zwrotna
-    
-    private $_isLoaded = false;     // flaga określająca, czy funkcja zwrotna została już wywołana
+    private $elements = array(); 
+    private $onload;               
+    private $isLoaded = false;     
     
     public function addItem($obj, $key = null) {
-        $this->_checkCallback();     // _checkCallback zdefiniowano nieco póĽniej
+        $this->_checkCallback();     
         
         if($key) {
-            if(isset($this->_members[$key])) {
+            if(isset($this->elements[$key])) {
                 throw new Exception("Klucz \"$key\" jest już zajęty!");
             } else {
-                $this->_members[$key] = $obj;
+                $this->elements[$key] = $obj;
             }
         } else {
-            $this->_members[] = $obj;
+            $this->elements[] = $obj;
         }
     }
     
     public function removeItem($key) {
         $this->_checkCallback();
         
-        if(isset($this->_members[$key])) {
-            unset($this->_members[$key]);
+        if(isset($this->elements[$key])) {
+            unset($this->elements[$key]);
         } else {
             throw new Exception("Błędny klucz \"$key\"!");
         }
@@ -41,8 +39,8 @@ abstract class Collection implements IteratorAggregate
     public function getItem($key) {
         $this->_checkCallback();
         
-        if(isset($this->_members[$key])) {
-            return $this->_members[$key];
+        if(isset($this->elements[$key])) {
+            return $this->elements[$key];
         } else {
             throw new Exception("Błędny klucz \"$key\"!");
         }
@@ -50,17 +48,17 @@ abstract class Collection implements IteratorAggregate
     
     public function keys() {
         $this->_checkCallback();
-        return array_keys($this->_members);
+        return array_keys($this->elements);
     }
     
     public function length() {
         $this->_checkCallback();
-        return sizeof($this->_members);
+        return sizeof($this->elements);
     }
     
     public function exists($key) {
         $this->_checkCallback();
-        return (isset($this->_members[$key]));
+        return (isset($this->elements[$key]));
     }
    
     public function getIterator()
@@ -69,14 +67,6 @@ abstract class Collection implements IteratorAggregate
         return new CollectionIterator($this);
     }
     
-    
-    
-    /**
-     * Ta metoda pozwala na zdefiniowanie funkcji,
-     * którą należy wywołać, aby wypełnić kolekcję.
-     * Jedynym parametrem tej funkcji powinna być
-     * kolekcja do wypełnienia.
-     */
     public function setLoadCallback($functionName, $objOrClass = null) {
         if($objOrClass) {
             $callback = array($objOrClass, $functionName);
@@ -84,22 +74,17 @@ abstract class Collection implements IteratorAggregate
             $callback = $functionName;
         }
         
-        // sprawdzenie, czy funkcję zwrotną da się wywołać
         if(!is_callable($callback, false, $callableName)) {
             throw new Exception("Funkcja zwrotna $callableName nieprawidłowa!");
             return false;
         }
-        $this->_onload = $callback;
+        $this->onload = $callback;
     }
-    /**
-     * Sprawdzenie, czy funkcja zwrotna została zdefiniowana,
-     * a jeśli tak, czy została już wywołana. Jeśli nie,
-     * zostaje ona wywołana.
-     */
+
     private function _checkCallback() {
-        if(isset($this->_onload) && !$this->_isLoaded) {
-            $this->_isLoaded = true;
-            call_user_func($this->_onload, $this);
+        if(isset($this->onload) && !$this->isLoaded) {
+            $this->isLoaded = true;
+            call_user_func($this->onload, $this);
         }
     }
 }

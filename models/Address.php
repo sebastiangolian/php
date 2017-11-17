@@ -3,6 +3,17 @@ namespace sebastiangolian\php\models;
 
 use sebastiangolian\php\base\Model;
 
+/*
+    $address = new Address([
+        'street'=>'Testowa', 
+        'number'=> '10',
+        'local' => '2',
+        'city' => 'Lublin',
+        'postCode' => '20-900',
+        'type' => 'domowy'
+    ]);
+ */
+
 class Address extends Model
 {
     protected $street;
@@ -30,6 +41,4 @@ class Address extends Model
             return true;
         }
     }
-    
 }
-

@@ -61,7 +61,7 @@ class OcenaNaSemestr
     private $ocena;
     private $semestr;
     
-    public function __construct(Uczen $uczen,Ocena $ocena, Semestr $semestr, Przedmiot $przedmiot)
+    public function __construct(Uczen $uczen, Ocena $ocena, Semestr $semestr, Przedmiot $przedmiot)
     {
         $this->uczen = $uczen;
         $this->ocena = $ocena;
