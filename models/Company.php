@@ -11,19 +11,27 @@ class Company extends Entity
      * @var WorkerCollection
      */
     protected $workers;
+
+    /**
+     * @return \sebastiangolian\php\models\WorkerCollection
+     */
+    public function getWorkers()
+    {
+        return $this->workers;
+    }
     
-    public function addWorkers(Worker $worker)
+    public function addWorker(Worker $worker)
     {
         $this->isWorkerCollection();
-        $this->worker->addItem($worker);
+        $this->workers->addItem($worker);
         return $this;
     }
     
     public function removeWorker($key)
     {
         $this->isWorkerCollection();
-        if($this->worker->exists($key)){
-            $this->worker->removeItem($key);
+        if($this->workers->exists($key)){
+            $this->workers->removeItem($key);
         }
         return $this;
     }
@@ -31,7 +39,7 @@ class Company extends Entity
     private function isWorkerCollection()
     {
         if(!isset($this->workers)){
-            $this->worker = new WorkerCollection();
+            $this->workers = new WorkerCollection();
         }
     }
     

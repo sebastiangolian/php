@@ -4,6 +4,7 @@ namespace sebastiangolian\php\base;
 
 use Exception;
 use IteratorAggregate;
+use sebastiangolian\php\helpers\VarDumper;
 
 
 abstract class Collection implements IteratorAggregate
@@ -79,6 +80,11 @@ abstract class Collection implements IteratorAggregate
             return false;
         }
         $this->onload = $callback;
+    }
+    
+    public function toString()
+    {
+       VarDumper::dump($this->elements);
     }
 
     private function _checkCallback() {

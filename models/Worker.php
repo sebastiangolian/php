@@ -36,6 +36,7 @@ class Worker extends Entity
     public function addCompany(Company $company)
     {
         $this->company = $company;
+        $this->company->addWorker($this);
         return $this;
     }
     

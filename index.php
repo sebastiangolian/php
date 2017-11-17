@@ -4,6 +4,7 @@ use sebastiangolian\php\models\Company;
 use sebastiangolian\php\models\Email;
 use sebastiangolian\php\models\PhoneNumber;
 use sebastiangolian\php\models\Worker;
+use sebastiangolian\php\helpers\VarDumper;
 
 require_once 'base/Autoloader.php';
 //require_once 'oop/example/Uczniowie.php';
@@ -13,13 +14,23 @@ $address = new Address(['street'=>'Testowa','number'=> '10','local' => '2','city
 $phoneNumber = new PhoneNumber(['number'=> '777777777', 'type'=>'domowy']);
 $email = new Email(['email'=> 'test@o2.pl', 'type'=>'domowy']);
 
+$company->addAddress($address)
+->addPhoneNumber($phoneNumber)
+->addEmail($email);
 
 
 $worker = new Worker(['firstname'=>'Jan','lastname'=>'Kowalski','title'=>'Dyrektor']);
 $worker->addCompany($company);
 
+$worker = new Worker(['firstname'=>'Michał','lastname'=>'Nowak','title'=>'Kierowca']);
+$worker->addCompany($company);
 
-$company->addAddress($address)
-->addPhoneNumber($phoneNumber)
-->addEmail($email)
-->toString();
+
+
+$workers = $company->getWorkers();
+
+/* @var $worker Worker */
+foreach ($workers as $worker)
+{
+    VarDumper::dump($worker->firstname);
+}
