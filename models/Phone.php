@@ -3,29 +3,22 @@ namespace sebastiangolian\php\models;
 
 use sebastiangolian\php\base\Model;
 
-
-/*
-    $email = new Email(['email' => 'sebastiangolian@gmail.com']);
-    VarDumper::dump($email->validate());
-    VarDumper::dump($email->errors);
- */
-class Email extends Model
+class Phone extends Model
 {
     const TYPE_HOME = 0;
     const TYPE_WORK = 1;
     const TYPE_ANOTHER = 2;
     
-    protected $email;   
-    protected $type = self::TYPE_HOME;                
-    
+    protected $number;
+    protected $type;
     
     /**
-    * {@inheritDoc}
-    * @see \sebastiangolian\php\base\Model::validate()
-    */
+     * {@inheritDoc}
+     * @see \sebastiangolian\php\base\Model::validate()
+     */
     public function validate()
     {
-        if(empty($this->email)){$this->errors['email'] = 'Pole email jest wymagane';}
+        if(empty($this->number)){$this->errors['number'] = 'Pole number jest wymagane';}
         if(empty($this->type)){$this->errors['type'] = 'Pole type jest wymagane';}
         
         if(count($this->errors) > 0){
@@ -36,21 +29,21 @@ class Email extends Model
     }
     
     /**
-     * @param string $email
+     * @param string $number
      * @return $this
      */
-    public function setEmail($email)
+    public function setNumber($number)
     {
-        $this->email = strtolower(trim($email));
+        $this->number = $number;
         return $this;
     }
     
     /**
      * @return string
      */
-    public function getEmail()
+    public function getNumber()
     {
-        return $this->email;
+        return $this->number;
     }
     
     /**
@@ -62,7 +55,7 @@ class Email extends Model
     {
         if (in_array($type, [0,1,2])) {
             return $this;
-        } 
+        }
         else{
             throw new \Exception('Not valid value for "type"');
         }

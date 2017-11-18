@@ -8,110 +8,148 @@ use sebastiangolian\php\base\Model;
  */
 abstract class Entity extends Model
 {
-    protected $name;
+    /**
+     * @var int
+     */
     protected $id;
     
     /**
-     *
      * @var AddressCollection
      */
-    public $addresses;
+    protected $addresses;
     
     /**
-     *
-     * @var PhoneNumberCollection
+     * @var PhoneCollection
      */
-    public $phoneNumbers;
+    protected $phones;
     
     /**
-     *
      * @var EmailCollection
      */
-    public $emails;
+    protected $emails;
+    
     
     /**
-     * Validation object
-     * @return boolean
+     * @param int $id
+     * @return $this
      */
-    public function validate()
+    public function setId($id)
     {
-        if(empty($this->name)){$this->errors['name'] = 'Pole name jest wymagane';}
-        if(empty($this->id)){$this->errors['id'] = 'Pole id jest wymagane';}
-        
-        if(count($this->errors) > 0){
-            return false;
-        } else {
-            return true;
-        }
+        $this->id = $id;
+        return $this;
     }
     
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param Address $address
+     * @return $this
+     */
     public function addAddress(Address $address)
     {
-        $this->isAddressCollection();
+        $this->initAddressCollection();
         $this->addresses->addItem($address);
         return $this;
     }
     
+    /**
+     * @param int $key
+     * @return $this
+     */
     public function removeAddress($key)
     {
-        $this->isAddressCollection();
+        $this->initAddressCollection();
         if($this->addresses->exists($key)){
             $this->addresses->removeItem($key);
         }
         return $this;
     }
     
-    private function isAddressCollection()
+    /**
+     * @return $this
+     */
+    private function initAddressCollection()
     {
         if(!isset($this->addresses)){
             $this->addresses = new AddressCollection();
         }
-    }
-    
-    public function addPhoneNumber(PhoneNumber $phoneNumber)
-    {
-        $this->isPhoneNumberCollection();
-        $this->phoneNumbers->addItem($phoneNumber);
         return $this;
     }
     
-    public function removePhoneNumber($key)
+    /** 
+     * @param Phone $phone
+     * @return $this
+     */
+    public function addPhone(Phone $phone)
     {
-        $this->isPhoneNumberCollection();
-        if($this->phoneNumbers->exists($key)){
-            $this->phoneNumbers->removeItem($key);
+        $this->initPhoneCollection();
+        $this->phones->addItem($phone);
+        return $this;
+    }
+    
+    /**
+     * @param int $key
+     * @return $this
+     */
+    public function removePhone($key)
+    {
+        $this->initPhoneNumberCollection();
+        if($this->phones->exists($key)){
+            $this->phones->removeItem($key);
         }
         return $this;
     }
     
-    private function isPhoneNumberCollection()
+    /**
+     * @return $this
+     */
+    private function initPhoneCollection()
     {
-        if(!isset($this->phoneNumbers)){
-            $this->phoneNumbers = new PhoneNumberCollection();
+        if(!isset($this->phones)){
+            $this->phones = new PhoneCollection();
         }
+        return $this;
     }
     
+    /**
+     * @param Email $email
+     * @return $this
+     */
     public function addEmail(Email $email)
     {
-        $this->isEmailCollection();
+        $this->initEmailCollection();
         $this->emails->addItem($email);
         return $this;
     }
     
+    /**
+     * @param int $key
+     * @return $this
+     */
     public function removeEmail($key)
     {
-        $this->isEmailCollection();
+        $this->initEmailCollection();
         if($this->emails->exists($key)){
             $this->emails->removeItem($key);
         }
         return $this;
     }
     
-    private function isEmailCollection()
+    /**
+     * @return $this
+     */
+    private function initEmailCollection()
     {
         if(!isset($this->emails)){
             $this->emails = new EmailCollection();
         }
+        
+        return $this;
     }
 }
-

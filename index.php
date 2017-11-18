@@ -2,30 +2,17 @@
 use sebastiangolian\php\models\Address;
 use sebastiangolian\php\models\Company;
 use sebastiangolian\php\models\Email;
-use sebastiangolian\php\models\PhoneNumber;
+use sebastiangolian\php\models\Phone;
 use sebastiangolian\php\models\Worker;
 use sebastiangolian\php\helpers\VarDumper;
 
 require_once 'base/Autoloader.php';
-//require_once 'oop/example/Uczniowie.php';
-
-$company = new Company(['id' => 1,'name' => 'Company S.A.']);
-$address = new Address(['street'=>'Testowa','number'=> '10','local' => '2','city' => 'Lublin','postCode' => '20-900','type' => 'firmowy']);
-$phoneNumber = new PhoneNumber(['number'=> '777777777', 'type'=>'domowy']);
-$email = new Email(['email'=> 'test@o2.pl', 'type'=>'domowy']);
-
-$company->addAddress($address)
-->addPhoneNumber($phoneNumber)
-->addEmail($email);
 
 
-$worker = new Worker(['firstname'=>'Jan','lastname'=>'Kowalski','title'=>'Dyrektor']);
-$worker->addCompany($company);
+$address = Address::create()->setStreet('Długa 28')->setPostcode('20-000')->setCity('Warszawa');
+$email = Email::create()->setEmail('test@o2.pl')->setType(Email::TYPE_HOME);
+$phone = Phone::create()->setNumber('777777777')->setType(Phone::TYPE_HOME);
+$woker = Worker::create()->setId(1)->setFirstname('Jan')->setLastname('Kowalski')->setGender(Worker::GENDER_MAN);
+$company = Company::create()->setId(1)->setName('ZOO z.o.o.');
 
-$worker = new Worker(['firstname'=>'Michał','lastname'=>'Nowak','title'=>'Kierowca']);
-$worker->addCompany($company);
-
-
-$company->addWorker($worker);
-
-echo $company->getWorkers()->length();
+$woker->addAddress($address)->addEmail($email)->addPhone($phone)->addCompany($company)->toString();

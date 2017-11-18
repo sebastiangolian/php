@@ -4,9 +4,23 @@ namespace sebastiangolian\php\models;
 
 class Worker extends Entity
 {
-    public $firstname;
-    public $lastname;
-    public $title;
+    const GENDER_WOMEN = 0;
+    const GENDER_MAN = 1;
+    
+    /**
+     * @var string
+     */
+    protected $firstname;
+    
+    /**
+     * @var string
+     */
+    protected $lastname;
+    
+    /**
+     * @var int
+     */
+    protected $gender;
     
     /**
      *
@@ -14,11 +28,15 @@ class Worker extends Entity
      */
     protected $company;
     
+    /**
+     * {@inheritDoc}
+     * @see \sebastiangolian\php\models\Entity::validate()
+     */
     public function validate()
     {
         if(empty($this->firstname)){$this->errors['firstname'] = 'Pole firstname jest wymagane';}
         if(empty($this->lastname)){$this->errors['lastname'] = 'Pole lastname jest wymagane';}
-        if(empty($this->title)){$this->errors['title'] = 'Pole title jest wymagane';}
+        if(empty($this->gender)){$this->errors['gender'] = 'Pole gender jest wymagane';}
         
         if(count($this->errors) > 0){
             return false;
@@ -27,12 +45,69 @@ class Worker extends Entity
         }
     }
     
+    /**
+     * @param string $firstname
+     * @return $this
+     */
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
         return $this;
     }
     
+    /**
+     * @return string
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+    
+    /**
+     * @param string $lastname
+     * @return $this
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+        return $this;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+    
+    /**
+     * @param int $type
+     * @throws \Exception
+     * @return $this
+     */
+    public function setGender($type)
+    {
+        if (in_array($type, [0,1])) {
+            return $this;
+        }
+        else{
+            throw new \Exception('Not valid value for "gender"');
+        }
+    }
+    
+    /**
+     * @return int
+     */
+    public function getGender()
+    {
+        return $this->type;
+    }
+    
+    /**
+     * @param Company $company
+     * @return $this
+     */
     public function addCompany(Company $company)
     {
         $this->company = $company;
@@ -40,13 +115,19 @@ class Worker extends Entity
         return $this;
     }
     
+    /**
+     * @return $this
+     */
     public function removeCompany()
     {
         $this->company = null;
         return $this;
     }
     
-    private function isCompany()
+    /**
+     * @return bool
+     */
+    private function hasCompany()
     {
         return isset($this->company);
     }
