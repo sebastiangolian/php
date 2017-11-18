@@ -4,9 +4,9 @@ namespace sebastiangolian\php\models;
 
 class Worker extends Entity
 {
-    protected $firstname;
-    protected $lastname;
-    protected $title;
+    public $firstname;
+    public $lastname;
+    public $title;
     
     /**
      *

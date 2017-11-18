@@ -52,6 +52,9 @@ abstract class Collection implements IteratorAggregate
         return array_keys($this->elements);
     }
     
+    /**
+     * @return int
+     */
     public function length() {
         $this->_checkCallback();
         return sizeof($this->elements);

@@ -23,7 +23,7 @@ class Company extends Entity
     public function addWorker(Worker $worker)
     {
         $this->isWorkerCollection();
-        $this->workers->addItem($worker);
+        $this->workers->addItem($worker,$worker->firstname.$worker->lastname);
         return $this;
     }
     

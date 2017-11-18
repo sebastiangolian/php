@@ -26,11 +26,6 @@ $worker = new Worker(['firstname'=>'Michał','lastname'=>'Nowak','title'=>'Kiero
 $worker->addCompany($company);
 
 
+$company->addWorker($worker);
 
-$workers = $company->getWorkers();
-
-/* @var $worker Worker */
-foreach ($workers as $worker)
-{
-    VarDumper::dump($worker->firstname);
-}
+echo $company->getWorkers()->length();
