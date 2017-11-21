@@ -1,10 +1,4 @@
 <?php
-use sebastiangolian\php\models\Address;
-use sebastiangolian\php\models\Company;
-use sebastiangolian\php\models\Email;
-use sebastiangolian\php\models\Phone;
-use sebastiangolian\php\models\Worker;
-use sebastiangolian\php\helpers\VarDumper;
 
 require_once 'base/Autoloader.php';
 
@@ -16,4 +10,6 @@ $woker = Worker::create()->setId(1)->setFirstname('Jan')->setLastname('Kowalski'
 $company = Company::create()->setId(1)->setName('ZOO z.o.o.');
 $woker->addAddress($address)->addEmail($email)->addPhone($phone)->addCompany($company)->toString();
 */
+
+
 
