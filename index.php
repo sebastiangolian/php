@@ -1,5 +1,7 @@
 <?php
 
+use sebastiangolian\php\helpers\VarDumper;
+
 require_once 'base/Autoloader.php';
 
 /*
@@ -12,4 +14,15 @@ $woker->addAddress($address)->addEmail($email)->addPhone($phone)->addCompany($co
 */
 
 
+$arr[1]['A'] = 'A1';
+$arr[1]['B'] = 'B1';
+$arr[1]['C'] = 'C1';
+$arr[2]['A'] = 'A2';
+$arr[2]['B'] = 'null';
+$arr[2]['C'] = 'C2';
+$arr[3]['A'] = 'A3';
+$arr[3]['B'] = 'B3';
+$arr[3]['C'] = 'null';
+
+VarDumper::dump($arr);
 
