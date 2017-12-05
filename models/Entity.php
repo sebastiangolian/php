@@ -9,11 +9,6 @@ use sebastiangolian\php\base\Model;
 abstract class Entity extends Model
 {
     /**
-     * @var int
-     */
-    protected $id;
-    
-    /**
      * @var AddressCollection
      */
     protected $addresses;
@@ -30,31 +25,13 @@ abstract class Entity extends Model
     
     
     /**
-     * @param int $id
-     * @return $this
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-    
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * @param Address $address
      * @return $this
      */
     public function addAddress(Address $address)
     {
         $this->initAddressCollection();
-        $this->addresses->addItem($address);
+        $this->addresses->addItem($address,$address->getId());
         return $this;
     }
     
@@ -89,7 +66,7 @@ abstract class Entity extends Model
     public function addPhone(Phone $phone)
     {
         $this->initPhoneCollection();
-        $this->phones->addItem($phone);
+        $this->phones->addItem($phone,$phone->getId());
         return $this;
     }
     
@@ -124,7 +101,7 @@ abstract class Entity extends Model
     public function addEmail(Email $email)
     {
         $this->initEmailCollection();
-        $this->emails->addItem($email);
+        $this->emails->addItem($email,$email->getId());
         return $this;
     }
     

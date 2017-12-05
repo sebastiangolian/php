@@ -125,6 +125,14 @@ class Worker extends Entity
     }
     
     /**
+     * @return \sebastiangolian\php\models\Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+    
+    /**
      * @return bool
      */
     private function hasCompany()
