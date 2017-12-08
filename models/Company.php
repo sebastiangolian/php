@@ -1,6 +1,9 @@
 <?php
 namespace sebastiangolian\php\models;
 
+/*
+$company = Company::create()->setName('ZOO z.o.o.');
+*/
 class Company extends Entity
 {
     /**

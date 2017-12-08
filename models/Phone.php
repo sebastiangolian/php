@@ -3,6 +3,9 @@ namespace sebastiangolian\php\models;
 
 use sebastiangolian\php\base\Model;
 
+/*
+Phone::create()->setNumber('777777777')->setType(Phone::TYPE_HOME)
+*/
 class Phone extends Model
 {
     const TYPE_HOME = 0;

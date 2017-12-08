@@ -1,7 +1,16 @@
 <?php
 namespace sebastiangolian\php\models;
 
-
+/*
+$woker = Worker::create()
+    ->setFirstname('Jan')
+    ->setLastname('Kowalski')
+    ->setGender(Worker::GENDER_MAN)
+    ->addAddress(Address::create()->setStreet('Długa 28')->setPostcode('20-000')->setCity('Warszawa'))
+    ->addEmail(Email::create()->setEmail('test@o2.pl')->setType(Email::TYPE_HOME))
+    ->addPhone(Phone::create()->setNumber('777777777')->setType(Phone::TYPE_HOME))
+    ->addCompany($company);
+*/
 class Worker extends Entity
 {
     const GENDER_WOMEN = 0;

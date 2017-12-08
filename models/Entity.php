@@ -4,7 +4,7 @@ namespace sebastiangolian\php\models;
 use sebastiangolian\php\base\Model;
 
 /**
- * Jednostka
+ * Parent class for Worker and Company
  */
 abstract class Entity extends Model
 {

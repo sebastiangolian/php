@@ -6,7 +6,6 @@ use sebastiangolian\php\base\Model;
 /*
 Address::create()->setStreet('Długa 28')->setPostcode('20-000')->setCity('Warszawa')->toString();
 */
-
 class Address extends Model
 {
     protected $street = '';
