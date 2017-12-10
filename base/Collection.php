@@ -3,7 +3,7 @@ namespace sebastiangolian\php\base;
 
 use Exception;
 use IteratorAggregate;
-use sebastiangolian\php\helpers\VarDumper;
+use sebastiangolian\php\component\helper\VarDumper;
 
 abstract class Collection implements IteratorAggregate
 {
@@ -94,6 +94,7 @@ abstract class Collection implements IteratorAggregate
             $callback = $functionName;
         }
         
+        $callableName = '';
         if (! is_callable($callback, false, $callableName)) {
             throw new Exception("Funkcja zwrotna $callableName nieprawidłowa!");
             return false;

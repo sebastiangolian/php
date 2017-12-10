@@ -21,3 +21,6 @@ $sqlliteCommand->delete('customer',['customer_id'=>5]);
 
 
 $sqlliteCommand->printTables(['customer','profile']);
+
+
+VarDumper::dump($select);
