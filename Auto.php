@@ -30,84 +30,13 @@
     echo $loggerHtml->generateAllMessages();
  */
 
-class LoggerMessage
-{
-    public $type;
-    public $message;
-    
-    public function __construct($type,$message)
-    {
-        $this->type = $type;
-        $this->message = $message;
-    }
-}
 
-class Logger
-{
-    private static $instance;
-    private $messages = [];
-    private $break = "<br />";
-    
-    private function __construct() {}
-    private function __clone() {}
-    
-    /**
-     * @return Logger
-     */
-    public static function getInstance()
-    {
-        if(self::$instance === null) {
-            self::$instance = new self;
-        }
-        return self::$instance;
-    }
-    
-    public function addLogFromObject(Object $object,$value)
-    {
-        $method = debug_backtrace()[1]['function'];
-        array_push($this->messages, new LoggerMessage($object->getName().'.'.$method,$value));
-    }
-    
-    public function addLog(LoggerMessage $message)
-    {
-        array_push($this->messages, $message);
-    }
-    
-    public function getMessages()
-    {
-        return $this->messages;
-    }
-    
-    public function generateAllMessages()
-    {
-        $ret = '';
-        foreach ($this->messages as $message) {
-            $ret .= "[".$message->type."] ".$message->message.$this->break;
-        }
-        return $ret;
-    }
-}
 
-class LoggerHtml
-{
-    private $logger;
-    
-    public function __construct(Logger $logger)
-    {
-        $this->logger = $logger;
-    }
-    
-    public function generateAllMessages()
-    {
-        $ret = "<table>";
-        $ret .= "<tr><th>type</th><th>message</th></tr>";
-        foreach ($this->logger->getMessages() as $message) {
-            $ret .= "<tr><td>{$message->type}</td><td>{$message->message}</td></tr>";
-        }
-        $ret .= "</table>";
-        return $ret;
-    }
-}
+
+
+
+
+use sebastiangolian\php\component\logger\Logger;
 
 abstract class Object
 {

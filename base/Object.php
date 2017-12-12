@@ -1,9 +1,18 @@
 <?php
 namespace sebastiangolian\php\base;
 
-use sebastiangolian\php\helpers\VarDumper;
+use sebastiangolian\php\component\helper\VarDumper;
+
 abstract class Object
 {
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return spl_object_hash($this);
+    }
+    
     /**
      * Return class name
      * @return string
