@@ -5,7 +5,22 @@ use Exception;
 use IteratorAggregate;
 use sebastiangolian\php\component\helper\VarDumper;
 
-abstract class Collection implements IteratorAggregate
+/**
+ * 
+ * @author seba
+ *
+ *
+    class Foo extends Object {
+
+    }
+    
+    $collection = new Collection();
+    $foo1 = new Foo();
+    $collection->addItem($foo1,$foo1->getId());
+    $collection->addItem(new Foo(),2);
+    $collection->toString();
+*/
+class Collection implements IteratorAggregate
 {
     private $elements = array();
 

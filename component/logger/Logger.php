@@ -7,7 +7,6 @@ class Logger
 {
     private static $instance;
     private $messages = [];
-    private $break = "<br />";
     
     private function __construct() {}
     private function __clone() {}
@@ -23,27 +22,54 @@ class Logger
         return self::$instance;
     }
     
-    public function addLogFromObject(Object $object,$value)
+    /**
+     * Logger::getInstance()->addLogInObject($this,$name);
+     * @param Object $object
+     * @param string $message
+     */
+    public function addLogInObject(Object $object, $message)
     {
         $method = debug_backtrace()[1]['function'];
-        array_push($this->messages, new LoggerMessage($object->getName().'.'.$method,$value));
+        array_push($this->messages, new LoggerMessage($object->getName().'.'.$method,$message));
     }
     
+    /**
+     * Logger::getInstance()->addLog(new LoggerMessage('category1','message1'));
+     * @param LoggerMessage $message
+     */
     public function addLog(LoggerMessage $message)
     {
         array_push($this->messages, $message);
     }
     
+    /**
+     * Logger::getInstance()->addDefaultLog('message default log');
+     * @param string $message
+     */
+    public function addDefaultLog($message)
+    {
+        $this->addLog(new LoggerMessage('default', $message));
+    }
+    
+    /**
+     * Return all messages
+     * @return array
+     */
     public function getMessages()
     {
         return $this->messages;
     }
     
-    public function generateAllMessages()
+    /**
+     * Return all messages in string with break
+     * @param string $break
+     * @return string
+     */
+    public function generateAllMessages($break = "<br />")
     {
         $ret = '';
         foreach ($this->messages as $message) {
-            $ret .= "[".$message->type."] ".$message->message.$this->break;
+            $ret .= "[".$message->type."] ".$message->message.$break;
         }
         return $ret;
     }

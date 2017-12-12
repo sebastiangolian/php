@@ -10,6 +10,10 @@ class LoggerHtml
         $this->logger = $logger;
     }
     
+    /**
+     * Generate all messages in html table
+     * @return string
+     */
     public function generateAllMessages()
     {
         $ret = "<table>";
