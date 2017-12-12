@@ -8,3 +8,5 @@ use sebastiangolian\php\component\helper\VarDumper;
 
 require_once 'base/Autoloader.php';
 
+echo 'test';
+
