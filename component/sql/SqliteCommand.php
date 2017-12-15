@@ -1,5 +1,5 @@
 <?php
-namespace sebastiangolian\php\component\sqlite;
+namespace sebastiangolian\php\component\sql;
 use SQLite3Result;
 use sebastiangolian\php\base\Component;
 
