@@ -3,9 +3,6 @@ namespace sebastiangolian\php\component\sql;
 
 use SQLite3;
 use SQLite3Result;
-use sebastiangolian\php\component\sql\Query;
-use sebastiangolian\php\component\sql\SqliteCommand;
-use sebastiangolian\php\component\sql\SqliteConnector;
 
 class SqliteActiveRecord
 {
