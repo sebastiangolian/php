@@ -5,6 +5,8 @@ use sebastiangolian\php\component\helper\ArrayHelper;
 use sebastiangolian\php\component\helper\VarDumper;
 
 /**
+ * Query represents a SELECT SQL statement
+ * 
  * $sql = Query::create()
  * ->columns(['id','firstname','lastname'])
  * ->where([['id','>',1],['firstname','=','Kowalski'],['OR','firstname','=','Kowalski']])
@@ -26,16 +28,6 @@ class Query
     }
     
     /**
-     * @param string[] $columns
-     * @return self
-     */
-    public function columns($columns)
-    {
-        $this->columns = $columns;
-        return $this;
-    }
-    
-    /**
      * @param string[] $tables
      * @return string
      */
@@ -46,9 +38,21 @@ class Query
         $this->bulidColumns().
         $this->bulidFrom().
         $this->bulidWhere();
+        
+        VarDumper::dump($sql);
         return $sql;
     }
     
+    /**
+     * @param string[] $columns
+     * @return self
+     */
+    public function columns($columns)
+    {
+        $this->columns = $columns;
+        return $this;
+    }
+
     /**
      * @param array|array[] $condition
      * @return self
@@ -58,7 +62,6 @@ class Query
         $this->where = $condition;
         return $this;
     }
-    
     
     /**
      * @param string[] $tables
@@ -86,7 +89,6 @@ class Query
      */
     protected function bulidFrom()
     {
-        VarDumper::dump($this->from);
         return " FROM ".implode(', ',$this->from);
     }
     
@@ -105,10 +107,10 @@ class Query
             foreach ($this->normalizeWhere() as $row)
             {
                 if($retString == ''){
-                    $retString .= ' WHERE '.$row[1].$row[2].$row[3];
+                    $retString .= ' WHERE '.$row[1].$row[2]."'".$row[3]."'";
                 } 
                 else{
-                    $retString .= ' '.$row[0].' '.$row[1].$row[2].$row[3];
+                    $retString .= ' '.$row[0].' '.$row[1].$row[2]."'".$row[3]."'";
                 }
             }
             return $retString;
@@ -142,7 +144,6 @@ class Query
      */
     protected function normalizeWhereRow($row)
     {
-        
         if(ArrayHelper::isAssoc($row))
         {
             return ['AND',key($row),'=',$row[key($row)]];

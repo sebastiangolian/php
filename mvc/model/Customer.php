@@ -1,7 +1,9 @@
 <?php
 namespace sebastiangolian\php\mvc\model;
 
-use sebastiangolian\php\base\ActiveRecord;
+use sebastiangolian\php\component\sql\SqliteActiveRecord;
+
+
 
 /**
  * @property string $firstname  
@@ -9,15 +11,18 @@ use sebastiangolian\php\base\ActiveRecord;
  * @property integer $profile_id 
  */
 
-class Customer extends ActiveRecord
+class Customer extends SqliteActiveRecord
 {
-    protected $firstname;
-    protected $lastname;
-    protected $profile_id;
-    
     protected $tableName = 'customer';
+    
+    protected $columns = [
+        'firstname' => 'Imię',
+        'lastname' => 'Nazwisko',
+        'profile_id' => 'Id profilu'
+    ];
+    
     protected $rules = [
-        [['username', 'email', 'status'], 'required'],
+        [['firstname', 'lastname', 'profile_id'], 'required'],
         [['profile_id'], 'integer']
     ];
 }

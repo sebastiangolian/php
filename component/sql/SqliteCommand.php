@@ -10,7 +10,7 @@ class SqliteCommand extends Component
     /**
      * @param SqliteConnector $connector
      * 
-     * $sqlliteCommand = new SqliteCommand(SqliteConnector::getInstance('db/sqlite.db'));
+     * $sqlliteCommand = new SqliteCommand(SqliteConnector::getInstance('mvc/db/sqlite.db'));
      */
     public function __construct(SqliteConnector $connector) 
     {
@@ -26,7 +26,9 @@ class SqliteCommand extends Component
      */
     public function select($table,$where = null)
     {
-        $stmt = $this->connector->getConnect()->prepare($this->querySelect($table,$where));
+        $query = new Query();
+        $sql = $query->where($where)->select([$table]); 
+        $stmt = $this->connector->getConnect()->prepare($sql);
         $ret = array();
         $results = $stmt->execute();
         while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
@@ -135,45 +137,5 @@ class SqliteCommand extends Component
         {
             $this->printTable($table);
         }
-    }
-    
-    
-    /**
-     * Make sql query
-     * @param array $where
-     * @return string
-     */
-    private function querySelect($table, $where = null)
-    {
-        $querySelect = "SELECT * FROM {$table}";
-        if($where == null)
-        {
-            return $querySelect;
-        }
-        else 
-        {
-            $queryWhere = $this->queryWhere($where);
-            return $querySelect.$queryWhere;
-        }
-    }
-    
-    /**
-     * Make sql where query
-     * @param array $where
-     * @return string
-     */
-    private function queryWhere($where)
-    {
-        $queryWhere = '';
-        foreach ($where as $key=>$value)
-        {
-            if($queryWhere == ''){
-                $queryWhere .= " WHERE ".$key." = '".$value."'";
-            }
-            else{
-                $queryWhere .= " AND ".$key." = '".$value."'";
-            }
-        }
-        return $queryWhere;
     }
 }

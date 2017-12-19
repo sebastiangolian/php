@@ -1,19 +1,22 @@
 <?php
 namespace sebastiangolian\php\mvc\model;
 
-use sebastiangolian\php\base\ActiveRecord;
+use sebastiangolian\php\component\sql\SqliteActiveRecord;
 
 /**
  * @property string $login 
  * @property string $role 
  */
 
-class Profile extends ActiveRecord 
+class Profile extends SqliteActiveRecord
 {
-    protected $login;
-    protected $role;
-    
     protected $tableName = 'profile';
+    
+    protected $columns = [
+        'login' => 'Login',
+        'role' => 'Rola'
+    ];
+    
     protected $rules = [
         [['login', 'role'], 'required']
     ];
