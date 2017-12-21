@@ -3,8 +3,6 @@ namespace sebastiangolian\php\mvc\model;
 
 use sebastiangolian\php\component\sql\SqliteActiveRecord;
 
-
-
 /**
  * @property string $firstname  
  * @property string $lastname 

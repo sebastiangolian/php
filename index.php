@@ -1,19 +1,20 @@
 <?php
-use sebastiangolian\php\component\sql\SqliteCommand;
-use sebastiangolian\php\component\sql\SqliteConnector;
-use sebastiangolian\php\mvc\model\Customer;
-use sebastiangolian\php\component\helper\VarDumper;
 
-require_once 'base/Autoloader.php';
+use sebastiangolian\php\mvc\core\Router;
 
-//VarDumper::dump(Customer::findOne(1));
-//VarDumper::dump(Customer::findAll(['id','>','1']));
+function __autoload($class) {
+    $class = str_replace("sebastiangolian\php\\","", $class);
+    $class = str_replace("\\","/", $class) . '.php';
+    require_once($class);
+}
 
+error_reporting(E_ALL);
+set_error_handler('sebastiangolian\php\mvc\core\Error::errorHandler');
+set_exception_handler('sebastiangolian\php\mvc\core\Error::exceptionHandler');
 
-$sqlliteCommand = new SqliteCommand(SqliteConnector::getInstance('mvc/db/sqlite.db'));
-$select = $sqlliteCommand->select('customer',['profile_id'=>'1']);
+$router = new Router();
+$router->add('', ['controller' => 'Index', 'action' => 'home']);
+$router->add('{controller}/{action}');
+$router->dispatch($_SERVER['QUERY_STRING']);
 
-VarDumper::dump($select);
-
-
-
+require_once 'test.php';
