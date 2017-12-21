@@ -25,9 +25,9 @@ class View
         $file = dirname(__DIR__) . "/view/".$view.".php";  // relative to Core directory
 
         if (is_readable($file)) {
-            require dirname(__DIR__) . "/view/header.php";
+            require dirname(__DIR__) . "/view/layout/header.php";
             require $file;
-            require dirname(__DIR__) . "/view/footer.php";
+            require dirname(__DIR__) . "/view/layout/footer.php";
         } else {
             throw new \Exception("$file not found");
         }

@@ -2,7 +2,6 @@
 namespace sebastiangolian\php\component\sql;
 
 use sebastiangolian\php\component\helper\ArrayHelper;
-use sebastiangolian\php\component\helper\VarDumper;
 
 /**
  * Query represents a SELECT SQL statement
@@ -38,8 +37,7 @@ class Query
         $this->bulidColumns().
         $this->bulidFrom().
         $this->bulidWhere();
-        
-        VarDumper::dump($sql);
+      
         return $sql;
     }
     

@@ -11,6 +11,6 @@
 <body>
     <!-- navigation -->
     <div class="navigation">
-        <a href="/php/mvc/index/home">home</a>
-        <a href="/php/mvc/index/test">test</a>
+        <a href="/php/index/home">Home</a>
+        <a href="/php/customer/index">Customer</a>
 	</div>
