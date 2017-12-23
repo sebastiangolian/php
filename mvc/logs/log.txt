@@ -1,0 +1,8 @@
+[23-Dec-2017 19:06:22 Europe/Berlin] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 S:\Projekty\PHP\php\index.php(18): sebastiangolian\php\mvc\core\Router->dispatch('1')
+#1 {main}
+Thrown in 'S:\Projekty\PHP\php\mvc\core\Router.php' on line 130
+[23-Dec-2017 19:07:41 Europe/Berlin] Uncaught exception: 'Exception' with message 'No route matched.'
+Stack trace: #0 S:\Projekty\PHP\php\index.php(18): sebastiangolian\php\mvc\core\Router->dispatch('1')
+#1 {main}
+Thrown in 'S:\Projekty\PHP\php\mvc\core\Router.php' on line 130

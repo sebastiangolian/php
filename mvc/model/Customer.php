@@ -1,7 +1,7 @@
 <?php
 namespace sebastiangolian\php\mvc\model;
 
-use sebastiangolian\php\component\sql\SqliteActiveRecord;
+use sebastiangolian\php\mvc\core\Model;
 
 /**
  * @property string $firstname  
@@ -9,7 +9,7 @@ use sebastiangolian\php\component\sql\SqliteActiveRecord;
  * @property integer $profile_id 
  */
 
-class Customer extends SqliteActiveRecord
+class Customer extends Model
 {
     protected $tableName = 'customer';
     

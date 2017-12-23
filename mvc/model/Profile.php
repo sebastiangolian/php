@@ -1,14 +1,14 @@
 <?php
 namespace sebastiangolian\php\mvc\model;
 
-use sebastiangolian\php\component\sql\SqliteActiveRecord;
+use sebastiangolian\php\mvc\core\Model;
 
 /**
  * @property string $login 
  * @property string $role 
  */
 
-class Profile extends SqliteActiveRecord
+class Profile extends Model
 {
     protected $tableName = 'profile';
     
