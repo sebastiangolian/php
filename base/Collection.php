@@ -3,7 +3,7 @@ namespace sebastiangolian\php\base;
 
 use Exception;
 use IteratorAggregate;
-use sebastiangolian\php\component\helper\VarDumper;
+use sebastiangolian\php\helper\VarDumper;
 
 /**
  * 
