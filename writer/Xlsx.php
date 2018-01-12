@@ -3,6 +3,45 @@ namespace sebastiangolian\php\writer;
 
 use ZipArchive;
 
+/**
+ * @author mk-j
+ * @see https://github.com/mk-j/PHP_XLSXWriter
+ */
+/*
+    //--------------- simple --------------------------------
+    $data = [
+        ['year','month','amount'],
+        ['2003','1','220'],
+        ['2003','2','153.5'],
+    ];
+    
+    $writer = new Xlsx();
+    $writer->writeSheet($data);
+    $writer->writeToFile('test.xlsx');
+    
+    //-------------- advanced -------------------------------
+    $header = [
+        'created'=>'date',
+        'product_id'=>'integer',
+        'quantity'=>'#,##0',
+        'amount'=>'price',
+        'description'=>'string',
+        'tax'=>'[$$-1009]#,##0.00;[RED]-[$$-1009]#,##0.00',
+    ];
+    
+    $data = [
+        ['2015-01-01',873,1,'44.00','misc','=D2*0.05'],
+        ['2015-01-12',324,2,'88.00','none','=D3*0.05'],
+    ];
+    
+    $writer = new Xlsx();
+    $writer->writeSheetHeader('Arkusz 1', $header );
+    foreach($data as $row)
+    {
+        $writer->writeSheetRow('Arkusz 1', $row );
+    }
+    $writer->writeToFile('test.xlsx');
+ */
 class Xlsx
 {
     const EXCEL_2007_MAX_ROW = 1048576;
@@ -1110,7 +1149,3 @@ class XlsxBuffererWriter
         return preg_match("//u", $string) ? true : false;
     }
 }
-
-
-
-// vim: set filetype=php expandtab tabstop=4 shiftwidth=4 autoindent smartindent:
