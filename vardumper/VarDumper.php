@@ -1,5 +1,5 @@
 <?php
-namespace sebastiangolian\php\helper;
+namespace sebastiangolian\php\vardumper;
 
 /**
  * @license GNU GENERAL PUBLIC LICENSE

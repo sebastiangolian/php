@@ -7,7 +7,7 @@ namespace sebastiangolian\php\helper;
  * 
  * Math provides a set of static methods for commonly used function math
  */
-abstract class Math
+abstract class MathHelper
 {
     /**
      * Round value to $precision places after comma

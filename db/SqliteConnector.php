@@ -1,5 +1,5 @@
 <?php
-namespace sebastiangolian\php\sql;
+namespace sebastiangolian\php\db;
 
 use SQLite3;
 use sebastiangolian\php\base\Component;

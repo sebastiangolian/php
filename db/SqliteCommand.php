@@ -1,5 +1,5 @@
 <?php
-namespace sebastiangolian\php\sql;
+namespace sebastiangolian\php\db;
 use SQLite3Result;
 use sebastiangolian\php\base\Component;
 
@@ -12,7 +12,7 @@ class SqliteCommand extends Component
      * 
      * $sqlliteCommand = new SqliteCommand(SqliteConnector::getInstance('mvc/db/sqlite.db'));
      */
-    public function __construct(SqliteConnector $connector) 
+    public function __construct(SqliteConnector $connector)  
     {
         $this->connector = $connector;
     }

@@ -7,7 +7,7 @@ namespace sebastiangolian\php\helper;
  * 
  * String provides a set of static methods for commonly used function string
  */
-abstract class String
+abstract class StringHelper
 {	
     /**
      * Replace all occurrences of the search string with the replacement string

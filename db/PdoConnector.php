@@ -1,5 +1,5 @@
 <?php
-namespace sebastiangolian\php\pdo;
+namespace sebastiangolian\php\db;
 
 use Exception;
 use PDO;

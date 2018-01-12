@@ -1,9 +1,9 @@
 <?php
-namespace sebastiangolian\php\base;
+namespace sebastiangolian\php\collection; 
 
 use Exception;
 use IteratorAggregate;
-use sebastiangolian\php\helper\VarDumper;
+use sebastiangolian\php\vardumper\VarDumper;
 
 /**
  * 

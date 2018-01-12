@@ -1,5 +1,5 @@
 <?php
-namespace sebastiangolian\php\helper;
+namespace sebastiangolian\php\faker;
 
 /**
  * @license GNU GENERAL PUBLIC LICENSE

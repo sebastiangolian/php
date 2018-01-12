@@ -1,6 +1,6 @@
 <?php
 
-namespace sebastiangolian\php\helper;
+namespace sebastiangolian\php\datetime;
 
 /**
  * @license GNU GENERAL PUBLIC LICENSE

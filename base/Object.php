@@ -1,7 +1,7 @@
 <?php
 namespace sebastiangolian\php\base;
 
-use sebastiangolian\php\helper\VarDumper;
+use sebastiangolian\php\vardumper\VarDumper;  
 
 abstract class Object
 {

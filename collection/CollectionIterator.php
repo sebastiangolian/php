@@ -1,5 +1,5 @@
 <?php
-namespace sebastiangolian\php\base;
+namespace sebastiangolian\php\collection;
 
 use Iterator;
 
