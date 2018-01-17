@@ -11,7 +11,7 @@ use sebastiangolian\php\base\Component;
  * 
  * PHP Component allows the use of PDO library
  */
-class PdoConnector extends Component
+class PdoConnector extends Component  
 {
     /**
      * PDO handler
