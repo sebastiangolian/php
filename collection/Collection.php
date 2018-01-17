@@ -20,7 +20,7 @@ use sebastiangolian\php\vardumper\VarDumper;
     $collection->addItem(new Foo(),2);
     $collection->toString();
 */
-class Collection implements IteratorAggregate 
+class Collection implements IteratorAggregate  
 {
     private $elements = array();
 
