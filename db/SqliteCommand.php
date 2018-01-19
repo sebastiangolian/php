@@ -102,6 +102,7 @@ class SqliteCommand extends Component
     {
         $result = $this->select($table);
         $existHeader = false;
+        echo "<span>-------------  <b>".strtoupper($table)."</b>  -------------</span><br />";
         echo "<table>";
         foreach ($result as $rows)
         {
@@ -131,11 +132,27 @@ class SqliteCommand extends Component
      * 
      * $sqlliteCommand->printTables(['customer','profile']);
      */
-    public function printTables($tables)
+    public function printTables($tables = null)
     {
+        if($tables == null){
+            $tables = $this->getTableNames();
+        }
+        
         foreach ($tables as $table)
         {
             $this->printTable($table);
         }
+    }
+    
+    public function getTableNames()
+    {
+        $sql = "SELECT name FROM sqlite_master WHERE type='table'";
+        $stmt = $this->connector->getConnect()->prepare($sql);
+        $ret = array();
+        $results = $stmt->execute();
+        while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
+            array_push($ret, $row['name']);
+        }
+        return $ret;
     }
 }
