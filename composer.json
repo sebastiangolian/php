@@ -2,8 +2,8 @@
     "name": "sebastiangolian/php",
     "description": "A collection of useful components for PHP",
     "keywords": ["php", "extension", "helper", "components"],
-    "type": "php",
-    "license": "GNU GENERAL PUBLIC LICENSE",
+    "type": "project",
+    "license": "MIT",
     "authors": [
         {
             "name": "Sebastian Golian",
