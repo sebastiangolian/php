@@ -6,13 +6,13 @@ namespace sebastiangolian\php\datetime;
  * @license GNU GENERAL PUBLIC LICENSE
  * @author Sebastian Golian <sebastiangolian@gmail.com>
  * 
- * DateTime provides a set of static methods for commonly used function time and date
+ * Date provides a set of static methods for commonly used function time and date
  */
-abstract class DateTime
+abstract class Date
 {
     /**
      * Return current Unix timestamp
-     * DateTime::currentTimestamp();
+     * Date::currentTimestamp();
      * @return int
      */
     public static function currentTimestamp()
@@ -22,7 +22,7 @@ abstract class DateTime
     
     /**
      * Return current date and time in chosen format
-     * DateTime::currentDate('Y-m-d');
+     * Date::currentDate('Y-m-d');
      * @param string $format
      * @return string
      */
@@ -32,9 +32,9 @@ abstract class DateTime
     }
     
     /**
-     * Parse datetime description into a Unix timestamp
-     * DateTime::dateToTimestamp('2017-01-01')
-     * DateTime::dateToTimestamp('2017-01-01 12:00:00')
+     * Parse Date description into a Unix timestamp
+     * Date::dateToTimestamp('2017-01-01')
+     * Date::dateToTimestamp('2017-01-01 12:00:00')
      * @param string $date
      * @return int
      */
@@ -45,7 +45,7 @@ abstract class DateTime
     
     /**
      * Parse Unix timestamp into a datetime description 
-     * DateTime::timestampToDate('1483268450')
+     * Date::timestampToDate('1483268450')
      * @param int $timestamp
      * @param string $format
      * @return string
@@ -129,7 +129,7 @@ abstract class DateTime
     
     /**
      * Return DateInterval object by difference $date1 and $date2
-     * DateTime::getDifference('2017-01-30', '2017-01-01')
+     * Date::getDifference('2017-01-30', '2017-01-01')
      * @param string $date1
      * @param string $date2
      * @return array
@@ -145,7 +145,7 @@ abstract class DateTime
 
     /**
      * Adds an amount of days, months, years, hours, minutes and seconds to a $date
-     * DateTime::add($date, "P7Y5M4DT1H15M44S")
+     * Date::add($date, "P7Y5M4DT1H15M44S")
      * @param string $date
      * @param string $howMuch 
      * @param string $format Return date format
@@ -160,7 +160,7 @@ abstract class DateTime
     
     /**
      * Return count weekend days for period
-     * DateTime::getWeekendDays('2017-01-01', '2017-01-30')
+     * Date::getWeekendDays('2017-01-01', '2017-01-30')
      * @param string $date_start
      * @param string $date_end
      * @return int
