@@ -40,9 +40,8 @@ class PdoConnector extends Component
      * @param string $pass
      * @param array $config
      */
-    public function __construct($dbhost, $dbname, $user, $pass, $config = []) 
+    public function __construct($dbhost, $dbname, $user, $pass) 
     {
-        parent::__construct($config);
         try {
             $pdo = new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname . ';charset=utf8', $user, $pass, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
             $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -55,6 +54,7 @@ class PdoConnector extends Component
     
     /**
      * Returns an array containing all of the result set rows or query row count
+     * Testing::vd($pdo->query("SELECT table_name FROM information_schema.tables WHERE table_schema='dbonline'"));
      * Testing::vd($pdo->query("INSERT INTO service VALUES (1,'test', 'test', '1')"));
      * Testing::vd($pdo->query("INSERT INTO service VALUES (:id,:name,:short_name,:type)",['id'=>2,'name'=>'test','short_name'=>'t','type'=>1]));
      * Testing::vd($pdo->query('SELECT * FROM service'));
@@ -150,6 +150,17 @@ class PdoConnector extends Component
     /**
      * Begin transaction
      * @return boolean
+     * 
+        $pdoConnector = new PdoConnector('localhost','dbonline', 'root', 'pass');
+        try {
+            $pdoConnector->beginTransaction();
+            $pdoConnector->execTransaction("INSERT INTO `log` (`id`, `level`, `category`, `log_time`, `prefix`, `message`, `is_error`) VALUES (NULL, '1', 'test', NULL, 'test', 'test', '0');");
+            $pdoConnector->commitTransaction();
+            
+        } catch (Exception $e) {
+            $pdoConnector->rollBack();
+            echo "Failed: " . $e->getMessage();
+        }
      */
     public function beginTransaction()
     {
@@ -160,7 +171,16 @@ class PdoConnector extends Component
      * Execute transaction
      * @return boolean
      */
-    public function executeTransaction()
+    public function execTransaction($query)
+    {
+        return $this->pdo->exec($query);
+    }
+    
+    /**
+     * Commit transaction
+     * @return boolean
+     */
+    public function commitTransaction()
     {
         return $this->pdo->commit();
     }

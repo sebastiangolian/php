@@ -7,4 +7,3 @@ Logger::getInstance()->addLog(new LoggerMessage('type', 'message'));
 
 echo Logger::getInstance()->generateAllMessages();
 
-
