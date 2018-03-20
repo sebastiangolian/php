@@ -45,14 +45,12 @@ class Ldap extends Component
      * @param string $host
      * @param int $port
      * @param string $dn
-     * @param array $config
      */
-    public function __construct($host, $port, $dn, $config = []) 
+    public function __construct($host, $port, $dn) 
     {
         $this->host = $host;
         $this->port = $port;
         $this->dn = $dn;
-        parent::__construct($config);
         
         $this->conn = ldap_connect($this->host, $this->port) or die("Nie udało się nawiązać połączenia LDAP.");
         ldap_set_option($this->conn, LDAP_OPT_PROTOCOL_VERSION, 3);   //użycie wersji protokołu LDAP v3

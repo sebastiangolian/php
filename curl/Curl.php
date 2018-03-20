@@ -49,11 +49,9 @@ class Curl extends Component
      *
      * @param string $url
      * @param array $data
-     * @param array $config
      */
-    public function __construct($url, $data = [], $config = []) 
+    public function __construct($url, $data = []) 
     {
-        parent::__construct($config);
         $this->url = $url;
         $this->data = $data;
         

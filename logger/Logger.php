@@ -3,6 +3,13 @@ namespace sebastiangolian\php\logger;
 
 use sebastiangolian\php\base\Object;
 
+
+/*
+ Logger::getInstance()->addDefaultLog('test');
+ Logger::getInstance()->addLog(new Message('type', 'message'));
+ echo Logger::getInstance()->generateAllMessages();
+ */
+
 class Logger
 {
     private static $instance;
