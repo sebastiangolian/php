@@ -30,14 +30,14 @@ class Logger
     public function addLogInObject(Object $object, $message)
     {
         $method = debug_backtrace()[1]['function'];
-        array_push($this->messages, new LoggerMessage($object->getName().'.'.$method,$message));
+        array_push($this->messages, new Message($object->getName().'.'.$method,$message));
     }
     
     /**
-     * Logger::getInstance()->addLog(new LoggerMessage('category1','message1'));
-     * @param LoggerMessage $message
+     * Logger::getInstance()->addLog(new Message('category1','message1'));
+     * @param Message $message
      */
-    public function addLog(LoggerMessage $message)
+    public function addLog(Message $message)
     {
         array_push($this->messages, $message);
     }
@@ -48,7 +48,7 @@ class Logger
      */
     public function addDefaultLog($message)
     {
-        $this->addLog(new LoggerMessage('default', $message));
+        $this->addLog(new Message('default', $message));
     }
     
     /**

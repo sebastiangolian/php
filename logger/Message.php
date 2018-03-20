@@ -1,7 +1,7 @@
 <?php
 namespace sebastiangolian\php\logger;
 
-class LoggerMessage
+class Message
 {
     /**
      * @var string

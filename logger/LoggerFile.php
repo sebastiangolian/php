@@ -1,6 +1,12 @@
 <?php
 namespace sebastiangolian\php\logger;
 
+/*
+ Logger::getInstance()->addDefaultLog('test');
+ Logger::getInstance()->addLog(new Message('type', 'message'));
+ $loggerHtml = new LoggerFile(Logger::getInstance());
+ echo $loggerHtml->saveToFile();
+ */
 class LoggerFile
 {
     private $logger;
@@ -11,17 +17,24 @@ class LoggerFile
     }
     
     /**
-     * Generate all messages in html table
-     * @return string
+     * Save all logs to file
+     * @return number
      */
-    public function generateAllMessages()
+    public function saveToFile()
     {
-        $ret = "<table>";
-        $ret .= "<tr><th>type</th><th>message</th></tr>";
+        $text = "";
+        $break = "\n";
         foreach ($this->logger->getMessages() as $message) {
-            $ret .= "<tr><td>{$message->type}</td><td>{$message->message}</td></tr>";
+            $text .= $message->getDateTime()." - [".$message->getType()."] ".$message->getMessage().$break;
         }
-        $ret .= "</table>";
-        return $ret;
+        
+        $file = "logger.txt";
+        if (is_file($file))
+        {
+            $currentData = file_get_contents($file);
+            $text = $text.$currentData;
+        }
+        
+        return file_put_contents($file,$text);
     }
 }
