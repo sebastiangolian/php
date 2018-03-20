@@ -69,7 +69,7 @@ class Logger
     {
         $ret = '';
         foreach ($this->messages as $message) {
-            $ret .= "[".$message->type."] ".$message->message.$break;
+            $ret .= $message->getDateTime()." - [".$message->getType()."] ".$message->getMessage().$break;
         }
         return $ret;
     }

@@ -6,12 +6,17 @@ class LoggerMessage
     /**
      * @var string
      */
-    public $type;
+    protected $type;
     
     /**
      * @var string
      */
-    public $message;
+    protected $message;
+    
+    /**
+     * @var string
+     */
+    protected $datetime;
     
     /**
      * @param string $type
@@ -21,6 +26,7 @@ class LoggerMessage
     {
         $this->type = $type;
         $this->message = $message;
+        $this->datetime = date('Y-m-d H:i:s.').substr(microtime(), 2, 5);
     }
     
     /**
@@ -37,5 +43,13 @@ class LoggerMessage
     public function getMessage()
     {
         return $this->message;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getDateTime()
+    {
+        return $this->datetime;
     }
 }
