@@ -2,8 +2,7 @@
 namespace sebastiangolian\php\logger;
 
 /*
- Logger::getInstance()->addDefaultLog('test');
- Logger::getInstance()->addLog(new Message('type', 'message'));
+ Logger::getInstance()->addLog('message');
  $loggerHtml = new LoggerFile(Logger::getInstance());
  echo $loggerHtml->saveToFile();
  */

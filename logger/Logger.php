@@ -1,9 +1,6 @@
 <?php
 namespace sebastiangolian\php\logger;
 
-use sebastiangolian\php\base\Object;
-
-
 /*
  Logger::getInstance()->addDefaultLog('test');
  Logger::getInstance()->addLog(new Message('type', 'message'));
@@ -30,34 +27,19 @@ class Logger
     }
     
     /**
-     * Logger::getInstance()->addLogInObject($this,$name);
-     * @param Object $object
-     * @param string $message
+     * Logger::getInstance()->add('XYZ');
+     * Add new log
+     * @param mixed $var
+     * @param string $type
      */
-    public function addLogInObject(Object $object, $message)
+    public function add($var,$type = 'default')
     {
-        $method = debug_backtrace()[1]['function'];
-        array_push($this->messages, new Message($object->getName().'.'.$method,$message));
+        $message = print_r($var, true);
+        $objMessage = new Message($type, $message);  
+        
+        array_push($this->messages, $objMessage);
     }
-    
-    /**
-     * Logger::getInstance()->addLog(new Message('category1','message1'));
-     * @param Message $message
-     */
-    public function addLog(Message $message)
-    {
-        array_push($this->messages, $message);
-    }
-    
-    /**
-     * Logger::getInstance()->addDefaultLog('message default log');
-     * @param string $message
-     */
-    public function addDefaultLog($message)
-    {
-        $this->addLog(new Message('default', $message));
-    }
-    
+
     /**
      * Return all messages
      * @return array
