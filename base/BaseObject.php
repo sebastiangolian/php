@@ -3,7 +3,7 @@ namespace sebastiangolian\php\base;
 
 use sebastiangolian\php\vardumper\VarDumper;  
 
-abstract class Object
+abstract class BaseObject
 {
     /**
      * @return string

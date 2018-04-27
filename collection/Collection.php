@@ -10,7 +10,7 @@ use sebastiangolian\php\vardumper\VarDumper;
  * @author seba
  *
  *
-    class Foo extends Object {
+    class Foo extends BaseObject {
 
     }
     

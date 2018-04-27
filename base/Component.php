@@ -8,7 +8,7 @@ namespace sebastiangolian\php\base;
  * 
  * Base class to components
  */
-abstract class Component extends Object
+abstract class Component extends BaseObject
 {
     
 }
