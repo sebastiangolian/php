@@ -19,10 +19,3 @@ or add
 ```
 
 to the ```require``` section of your `composer.json` file.
-
-
-## License
-
-**yii2** is released under the BSD 3-Clause License.
-
-test
